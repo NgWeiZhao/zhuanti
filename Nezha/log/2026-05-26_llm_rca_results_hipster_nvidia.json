@@ -1,0 +1,1385 @@
+{
+  "config": {
+    "namespace": "hipster",
+    "provider": "nvidia",
+    "model": "minimaxai/minimax-m2.7",
+    "compare_normal": false,
+    "timestamp": "2026-05-26 11:33:13.642494"
+  },
+  "accuracy": {
+    "top1": 55.35714285714286,
+    "top3": 73.21428571428571,
+    "top1_count": 31,
+    "top3_count": 41,
+    "total": 56,
+    "not_found": 15
+  },
+  "detailed_results": [
+    {
+      "fault_number": 1,
+      "inject_time": "2022-08-22 03:53:54",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod has memory usage at 81.28%, exceeding the threshold. The trace data shows adservice database queries (SELECT addatabase.aditems) taking 600-2000us each, and GetAds calls taking 100-300ms. This memory pressure is causing slow database operations and degraded ad serving performance, which cascades to frontend and other services."
+        },
+        {
+          "rank": 2,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "frontend pod has CPU usage at 81.35%, exceeding the threshold. The frontend is the entry point handling all user requests, and its high CPU usage is causing increased latency across all downstream service calls. Multiple traces show frontend operations taking 100-300ms per call, indicating CPU contention is bottlenecking request processing."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "currencyservice shows elevated CPU at 39.95% with high network P90 latency of 191.83ms. Trace data shows repeated CurrencyService/Convert calls taking 100-400ms each, and GetSupportedCurrencies taking 99ms. The service appears to be CPU-bound, processing currency conversions inefficiently under load."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 2,
+      "inject_time": "2022-08-22 04:02:07",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows the highest CPU usage at 52.41% among all services, and Network P90 latency of 5.59ms is also the highest. Trace data reveals extremely high latency in CurrencyService/Convert calls: 491774us (~492ms) in Trace 2, 90345us and 64044us in Trace 1, and multiple calls exceeding 70-100ms. This indicates the service is under CPU resource contention, causing significant delays in currency conversion operations that cascade to frontend requests."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice has a resource alarm for MemoryUsageRate exceeding threshold with 81.31% memory usage, the highest among all services. While the CPU is low (0.9%), the high memory pressure could cause garbage collection pauses or memory allocation delays affecting ad retrieval operations."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "productcatalogservice shows variable latency in GetProduct calls ranging from 2508us to 48694us (Trace 5), with some calls taking over 45ms. The service has 9.93% CPU usage and performs multiple SQL queries per request. Some slow queries (e.g., 2134us, 1654us) suggest potential CPU resource constraints affecting database query processing."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 3,
+      "inject_time": "2022-08-22 04:10:20",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "Frontend pod (frontend-579b9bff58-t2dbm) shows CPU usage at 99.93%, which is critically saturated and exceeds the CPU threshold alarm. This CPU saturation on the frontend directly causes the extremely high end-to-end latency observed in all traces (ranging from 400ms to 1.59s), as the frontend cannot process requests efficiently and becomes the bottleneck for all downstream service calls."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Adservice pod (adservice-5f6585d649-fnmft) shows memory usage at 81.31%, exceeding the MemoryUsageRate threshold alarm. While the AdService/GetAds calls show moderate latency (5-100ms), the memory pressure could cause garbage collection pauses and contribute to latency spikes, especially given the frequent database queries to addatabase.aditems."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Currencyservice shows elevated CPU usage at 54.79%, which is notably high compared to other services. Multiple traces show CurrencyService calls (GetSupportedCurrencies, Convert) taking 80-100ms, and Trace 6 shows 11 consecutive Convert calls with durations up to 79ms each, indicating the service is under computational load that may be contributing to overall system latency."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 4,
+      "inject_time": "2022-08-22 04:18:35",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 70.22% is the highest among all services. Trace 3 shows CurrencyService/Convert taking 299987us (300ms) vs normal 5-7ms, indicating severe performance degradation. The high CPU contention is causing extreme latency in currency conversion operations."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 46.36% is elevated. Trace 8 shows GetProduct calls taking 474496us and 468921us (474ms and 469ms) instead of normal 10-20ms. Multiple SQL query operations show high latency (3384us, 3123us, 2983us), indicating CPU resource contention affecting database query performance."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.32% exceeded the MemoryUsageRate threshold, triggering an alarm. While the latency in traces for AdService (45ms, 22ms) appears reasonable, the memory pressure could contribute to overall system instability and may affect service performance under sustained load."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 5,
+      "inject_time": "2022-08-22 04:27:03",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "network_delay",
+          "evidence": "cartservice NetworkP90=252.6ms exceeds threshold, and GetCart operations consistently show 240-260ms latency across all 8 traces. This is the dominant latency contributor in the call chains, with frontend->CartService/GetCart taking 240-259ms out of total trace durations of 313-502ms. The network delay from frontend to cartservice is the primary bottleneck."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice MemoryUsageRate=81.38% exceeds threshold. While the memory pressure alone may not cause latency, it can contribute to GC pauses and slower response times for ad queries, as evidenced by some GetAds calls taking 20-24ms in traces 5 and 6."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice CPU=44.97% is elevated. The service handles many Convert calls (some taking 95-139ms as seen in traces 2-4) and appears to be a downstream bottleneck. High CPU may cause processing delays for currency conversions, compounding the overall latency from cartservice network delays."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 6,
+      "inject_time": "2022-08-22 04:36:03",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "cpu_contention",
+          "evidence": "cartservice pod shows 88.3% CPU usage, the highest among all services and exceeding the threshold. Multiple traces show GetCart operations with extremely high latency (94ms-310ms), directly correlating with the CPU spike. Trace 2 shows GetCart at 94638us, Trace 3 at 124868us, Trace 4 at 149381us, Trace 5 at 185048us, and Trace 7 at 310363us. This service is a critical path component for user requests, and its CPU saturation is causing request queuing and high latency."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows 70.22% CPU usage, second highest in the system. Traces show Convert operations with high latency (83ms in Trace 3, 80ms in Trace 5) and GetSupportedCurrencies at 319ms in Trace 7. The high CPU on currencyservice may be contributing to latency, though this could also be a secondary effect of waiting on cartservice responses."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod shows 81.3% memory usage, exceeding the MemoryUsageRate threshold. While the memory pressure could cause GC pauses or OOM risks, the trace data shows adservice operations (GetAds) are relatively fast (10-27ms) compared to cartservice latency issues. This appears to be a secondary concern rather than the primary root cause."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 7,
+      "inject_time": "2022-08-22 04:44:16",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "checkoutservice pod shows CPU usage at 100.8%, which is the only service exceeding the CPU threshold (CpuUsageRate alarm). This indicates the service is consuming excessive CPU resources, likely causing request processing delays and cascading latency to dependent services."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "Multiple traces show extremely high latency in productcatalogservice GetProduct calls (78026us, 91085us, 92723us, 89019us, 89786us) and an exceptionally slow SQL query (85723us). The service has elevated CPU at 32.41% and is experiencing significant internal processing delays, possibly due to resource contention affecting database operations."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows elevated CPU at 45.97% and Network P90 at 7.87ms. Traces reveal GetCurrencyData calls with extremely high durations (30872us, 67449us), indicating the service is under CPU pressure causing slow currency conversion operations that impact overall request latency."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 8,
+      "inject_time": "2022-08-22 04:52:55",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows 70.79% CPU usage (highest among all services). Trace analysis reveals extremely high latencies: GetSupportedCurrencies taking 465ms (Trace 2), GetCurrencyData taking 198ms (Trace 2), and multiple Convert calls taking 711ms, 91ms, 88ms, 73ms respectively (Trace 6). These currency operations are blocking and causing cascading delays across frontend and checkoutservice."
+        },
+        {
+          "rank": 2,
+          "service": "checkoutservice",
+          "fault_type": "network_delay",
+          "evidence": "checkoutservice NetworkP90=271.15ms is 27x higher than other services (next highest is frontend at 10ms). This alarm indicates network latency issues. The high latency in currency conversions (caused by currencyservice) compounds this, as checkoutservice makes multiple currency conversion calls during PlaceOrder operations."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice MemoryUsageRate=81.39% exceeded threshold. While this is a resource alarm, the memory pressure is less severe than the CPU/network issues affecting currencyservice and checkoutservice. The adservice traces show normal query times (2-3ms), suggesting memory pressure is not the primary fault driver."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 11,
+      "inject_time": "2022-08-22 05:18:09",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 101.34% (exceeded threshold) with extremely high network P90 latency of 1801.85ms. All request traces show CurrencyService calls (GetSupportedCurrencies, Convert, GetCurrencyData) as the dominant latency contributors, with Convert operations taking 2-7 seconds and GetCurrencyData taking 95-199ms. The high CPU consumption is causing severe processing delays in currency conversion operations."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency of 1801.85ms is abnormally high. The currencyservice is experiencing significant network delays when handling gRPC calls from frontend and other services, as evidenced by Convert operations taking up to 6.7 seconds in trace 6 and multiple GetCurrencyData calls taking 95-199ms."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.35% exceeded threshold. While this is a threshold violation, the adservice traces show normal query times (500-2000us) and the service is not showing CPU issues. This is likely a secondary effect rather than the primary cause of system slowdown."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 12,
+      "inject_time": "2022-08-22 05:27:06",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows NetworkP90 of 652.03ms (far exceeding threshold) and CPU at 46.35% (highest among all services). Traces show GetSupportedCurrencies and Convert operations consistently taking 590-600ms each, indicating the service is bottlenecked. The high CPU combined with network latency suggests CPU resource contention is causing slow request processing, leading to queued requests and increased network latency."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "The NetworkP90 alarm is triggered specifically for currencyservice at 652.03ms. All traces involving currency operations show frontend calls to CurrencyService taking 590-600ms while internal gRPC calls within currencyservice complete in 300-1300us, confirming the delay originates from network-level issues affecting the service's external interface."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice has MemoryUsageRate of 81.42% which exceeds the threshold. While trace durations for adservice are relatively short (10-46ms), the high memory pressure could contribute to overall system instability and may cause OOM issues if sustained. This is a secondary concern compared to currencyservice's critical latency issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 13,
+      "inject_time": "2022-08-22 05:35:34",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CurrencyService shows 68.69% CPU usage and exhibits severe latency spikes in traces: GetSupportedCurrencies took 313ms (Trace 2) and Convert operations took 195ms, 99ms, 88ms, 87ms (Trace 6, 7) versus normal sub-2ms durations. The high CPU contention is causing request queuing and delayed processing of currency conversion requests."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice has MemoryUsageRate alarm triggered with 81.39% memory utilization. Traces show AdService/GetAds calls taking 19-39ms, and logs indicate database queries against addatabase.aditems. The memory pressure may be causing slowdowns in ad retrieval operations."
+        },
+        {
+          "rank": 3,
+          "service": "emailservice",
+          "fault_type": "cpu_contention",
+          "evidence": "emailservice has CpuUsageRate alarm with 84.5% CPU usage. Trace 4 shows EmailService/SendOrderConfirmation taking 150ms, which is significantly elevated. The high CPU consumption on this service is impacting order confirmation email delivery latency."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "fault_number": 14,
+      "inject_time": "2022-08-22 05:43:48",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 70.81% is the highest among all services. Trace analysis shows extremely slow CurrencyService operations: GetCurrencyData taking 68992us and Carry operations taking 66442us in Trace 5, and multiple Convert calls with durations exceeding 90ms in Trace 1. The high CPU contention is causing cascading latency in frontend requests that depend on currency conversion."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 48.95% is the second highest. Multiple traces show slow GetProduct calls: Trace 7 shows GetProduct durations of 15-18ms, and Trace 8 shows GetProduct taking up to 22711us. The service is processing many SQL queries with varying latencies (sql.conn.query ranging from 500us to 2758us), indicating CPU pressure affecting database query performance."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.39% has exceeded the MemoryUsageRate threshold alarm. Trace 8 shows slow AdService operations: getAdsByCategory taking 15169us and 13111us, with SELECT queries to addatabase taking up to 2536us. The memory pressure may be causing slowdowns in ad retrieval operations, though this appears secondary to the currency and product catalog service issues."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 15,
+      "inject_time": "2022-08-22 05:52:54",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 40.88% is elevated and appears in all slow traces (120-274ms total duration). Multiple SQL queries show high variance (26us to 6883us) indicating database contention. Operations like GetProduct, ListProducts, ParseCatalog, and ReadCatalog consistently show elevated durations (3ms to 90ms) across traces 3-7, suggesting the service is a primary bottleneck."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 58.09% is the highest among all services, with network P90 at 10.44ms. This elevated CPU could indicate CPU contention affecting the service's ability to process requests efficiently. While trace durations for currency operations are relatively short (200-1200us), the high CPU usage suggests resource pressure that could impact overall system performance under load."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.39% exceeded the MemoryUsageRate threshold. Ad service operations (GetAds) show elevated durations in slow traces (11-26ms), and multiple SELECT queries to addatabase.aditems are observed. High memory pressure could be causing GC pauses or memory allocation delays affecting ad retrieval performance."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 16,
+      "inject_time": "2022-08-22 06:01:18",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU at 38.84% with GetProduct operations showing extreme latency (268ms in Trace 6, 66ms in Trace 7) while SQL queries remain fast (650us-2.6ms). The high CPU usage indicates resource contention causing slow processing of GetProduct requests, which dominate the trace durations."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU at 53.86% with Network P90 at 10.46ms. Multiple traces show GetSupportedCurrencies taking 105ms (Trace 4) and Convert taking 94ms (Trace 6), indicating the service is struggling to process requests efficiently under CPU load."
+        },
+        {
+          "rank": 3,
+          "service": "paymentservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage of 82.15% exceeds the CpuUsageRate threshold. While current service call durations are moderate (357us), the high CPU consumption indicates the service is at risk of becoming a bottleneck if load increases."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "fault_number": 17,
+      "inject_time": "2022-08-22 06:35:39",
+      "inject_pod": "productcatalogservice-668d5f85fb-wckp8",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 87.74% triggered an alarm. Request traces show productcatalogservice GetProduct calls taking 40-100ms (normally sub-ms), ListProducts taking 200-300ms, and ParseCatalog/ReadCatalog taking 100-200ms. SQL queries within productcatalogservice show significant delays (up to 85ms for a single query). The high CPU saturation is causing severe latency in all product catalog operations, cascading delays throughout the entire request chain."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.4% exceeded threshold. While adservice operations appear relatively fast in traces (9-16ms), the memory pressure could be causing garbage collection pauses or memory allocation delays that contribute to overall system instability."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 49.3% is elevated. Some Convert operations show elevated latency (up to 90ms in Trace 4). The service handles currency conversions for many product listings, and its moderate CPU saturation may be contributing to request queuing delays, though it appears secondary to productcatalogservice's more severe issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 18,
+      "inject_time": "2022-08-22 06:52:56",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "network_delay",
+          "evidence": "The recommendationservice shows NetworkP90=502.66ms which exceeds the threshold. In all slow traces (Trace 2, 4, 5, 6, 8 with durations 570-726ms), the RecommendationService/ListRecommendations call consistently takes ~500ms (510106us, 516249us, 498842us, 499417us, 502145us), directly causing the overall request latency. The service is experiencing severe network communication delays when calling downstream services like productcatalogservice."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The adservice pod (adservice-5f6585d649-fnmft) has MemoryUsageRate of 81.42% which exceeds the threshold. While traces show adservice responding in single-digit milliseconds, the memory pressure could cause intermittent slowdowns or failures under sustained load. The memory alarm indicates the service is approaching resource limits."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "The currencyservice shows the highest CPU usage at 58.29% among all services. Although individual trace durations for currency operations are in the microsecond range, the elevated CPU could indicate resource contention that may affect the service's ability to handle concurrent requests efficiently, especially during peak load periods."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 19,
+      "inject_time": "2022-08-22 07:01:25",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 102.25% (exceeding 100%), which is the only service with CPU saturation. In all 6 traces involving recommendationservice, the ListRecommendations call dominates total request latency (61-97% of total duration). Trace 6 shows ListRecommendations taking 2,105,885us out of 2,171,259us total. This CPU saturation causes severe request queuing and response time degradation."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency at 84.16ms is the highest among all services. The recommendationservice makes multiple sequential calls to productcatalogservice's ListProducts and GetProduct methods. Trace 1 shows productcatalogservice/ListProducts taking 406,498us and multiple GetProduct calls adding significant delay. This high network latency compounds the CPU contention issue in recommendationservice."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.43% triggered the MemoryUsageRate alarm. While not directly causing the primary latency issue, memory pressure can contribute to GC pauses and overall system degradation. The adservice is called in multiple traces but its contribution to total latency is minimal compared to recommendationservice."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 20,
+      "inject_time": "2022-08-22 07:10:43",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 99.97% (critical threshold exceeded). All trace chains show recommendationservice/ListRecommendations taking 1.1-2.6 seconds per call, causing frontend request durations to exceed 3-4 seconds. The service is CPU-saturated and unable to process requests efficiently."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.39% exceeded threshold. While not directly causing latency, memory pressure can trigger GC pauses and slow down request processing, contributing to overall system degradation."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency at 84.64ms is significantly elevated compared to other services (next highest is frontend at 10ms). This service is called extensively by recommendationservice, and any network delay compounds the latency introduced by recommendationservice's CPU saturation."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 21,
+      "inject_time": "2022-08-22 07:17:55",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "network_delay",
+          "evidence": "The Network P90 metric for shippingservice is 478.91ms, which is extremely high and exceeds the alarm threshold. In all sampled traces, ShippingService/GetQuote calls dominate the total request duration (467-481ms out of ~500-1100ms total), accounting for 80-90% of end-to-end latency. However, the internal shippingservice operations (GetQuote, CreateQuoteFromCount, QuoteByCountFloat, CreateQuoteFromFloat) are all fast (55-968us), indicating the delay occurs in network communication to/from the service, not in the service itself."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod shows MemoryUsageRate of 81.41%, which exceeds the threshold and triggers a memory alarm. While the memory usage is not critically high, it indicates memory pressure that could contribute to latency in the adservice pod, potentially affecting ad serving performance as seen in Trace 7 and Trace 8 where AdService/GetAds calls show elevated durations (17.7s and 8.1s respectively)."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows elevated CPU usage at 45.71%, which is notably high compared to other services. In Trace 2, CurrencyService/GetSupportedCurrencies takes 348938us (30% of total request time), and multiple CurrencyService/Convert calls show elevated durations (78.3ms, 59.6ms, 82.7ms). This CPU elevation could indicate resource contention affecting the service's ability to process currency conversions in a timely manner."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 22,
+      "inject_time": "2022-08-22 07:26:48",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 89.5% (highest among all services) with alarms triggered. Trace 4 shows extreme latency in shippingservice operations: GetQuote=117346us, CreateQuoteFromCount=100005us, QuoteByCountFloat=99475us. Trace 5 shows GetQuote=79739us. The high CPU contention is causing severe delays in quote creation operations."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 58.32% with Network P90=16.28ms (highest network latency). Trace 6 shows multiple CurrencyService/Convert calls with durations up to 192021us, and GetCurrencyData taking 91912us. The combination of high CPU and network latency indicates resource consumption affecting conversion operations."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.43% exceeded threshold. While CPU is low (2.72%), the memory pressure could affect ad retrieval operations. Traces show GetAds calls taking 20-24ms, which although not extreme, may be impacted by memory pressure during the fault period."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 23,
+      "inject_time": "2022-08-22 07:44:20",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CurrencyService shows extreme latency spikes in traces: Convert operations reaching 410ms, 106ms, 92ms, 79ms; GetCurrencyData reaching 79ms; Carry operations reaching 78ms. CPU usage at 53.44% is elevated. The massive latency variance (232μs to 79,627μs for GetCurrencyData) indicates CPU resource contention causing inconsistent processing times. These slow currency conversions directly impact overall request latency across multiple traces."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 95.86% critically exceeds the MemoryUsageRate threshold, triggering an alarm. This high memory pressure could lead to garbage collection pauses or OOM failures. While trace durations for adservice are relatively consistent (20-30ms), the memory exhaustion state is a critical fault that could cause service degradation or crashes."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 33.15% is elevated compared to other services. Network P90 at 10ms is notably high. Multiple traces show productcatalogservice operations with elevated durations (7-19ms for GetProduct calls), and the service handles high query volumes with SQL operations. This suggests CPU contention contributing to latency, though less severe than currencyservice."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 24,
+      "inject_time": "2022-08-22 07:53:33",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU at 48.1% with extremely high trace latencies: SQL query taking 75293us in Trace 8, multiple GetProduct calls taking 82-91ms, ListProducts taking 48ms, and ParseCatalog/ReadCatalog operations taking 47-48ms. The slow database queries are the primary bottleneck causing 317ms total trace duration in Trace 8."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 86.55% has exceeded the MemoryUsageRate threshold alarm. AdService/GetAds calls show high latency (20-40ms in Trace 3), and logs show 'No context provided. Constructe random Ads' indicating potential fallback behavior under memory pressure."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 69.02% is the highest among all services. Trace 2 shows CurrencyService/Convert taking 19522us (19.5ms), significantly higher than other traces. This elevated CPU may be contributing to response time degradation, though it's likely a secondary effect of overall system load."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 25,
+      "inject_time": "2022-08-23 12:01:25",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "Frontend pod shows 87% CPU usage which exceeds threshold and is the highest among all services. The trace data shows extremely long frontend request durations (1.4s-2.1s) with calls to CurrencyService taking ~100ms each (10x normal). This high CPU causes request queuing and processing delays that cascade to all dependent services."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CurrencyService shows 52.57% CPU usage with consistently high network latency (190.47ms P90). Multiple traces show CurrencyService/Convert calls taking 100-400ms when called from frontend, indicating the service is under CPU pressure and processing requests slowly."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod shows 87.04% memory usage which exceeds threshold. While trace durations for adservice are relatively short (13-27ms), the high memory pressure could indicate a memory leak or inefficient caching that may cause issues under sustained load."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 26,
+      "inject_time": "2022-08-23 12:10:21",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "currencyservice shows the highest CPU usage at 57.09% among all services, significantly above others (next highest is productcatalogservice at 16.66%). Trace 4 shows a ConvertCurrency call taking 61071us (61ms), which is abnormally high. Multiple ConvertCurrency calls in Trace 8 also show elevated durations (5-6ms each). The high CPU consumption is causing slow currency conversions that cascade through checkoutservice and frontend, evidenced by the 274ms total duration in Trace 4 where currency conversions are a major contributor."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice has MemoryUsageRate at 86.96%, which exceeds the configured threshold and triggers a resource alarm. While the service appears to be responding (logs show successful ad queries), the high memory pressure could lead to garbage collection pauses or OOM risks that may cause intermittent failures or latency spikes under sustained load."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "productcatalogservice has the second-highest CPU usage at 16.66% and appears extensively in all trace paths (called dozens of times in Trace 4). While individual operations remain fast (2-5ms), the cumulative effect of high call volume combined with elevated CPU usage suggests potential CPU contention that could impact response times under load."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 27,
+      "inject_time": "2022-08-23 12:18:23",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "Frontend pod (frontend-579b9bff58-t2dbm) has CPU usage at 86.89%, exceeding the threshold and triggering an alarm. All request traces show frontend as the entry point with total durations ranging from 102ms to 1.8M us, indicating severe performance degradation. The high CPU contention at the frontend is causing request processing delays that cascade to downstream services."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Adservice pod (adservice-5f6585d649-fnmft) has memory usage at 87.1%, exceeding the threshold and triggering a MemoryUsageRate alarm. The high memory pressure can cause garbage collection pauses and slow down ad serving, as evidenced by GetAds durations ranging from 9-14ms in traces. This memory pressure is likely causing latency in the ad serving path."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Currencyservice shows elevated CPU usage at 46.77% with network P90 latency of 91.06ms. Trace 3 shows CurrencyService/Convert taking 247255us (247ms) and GetCurrencyData taking 80711us (80ms), indicating high CPU consumption during currency conversion operations. This service is frequently called by frontend and contributes to overall request latency."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 28,
+      "inject_time": "2022-08-23 12:27:23",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CurrencyService shows the highest CPU usage at 49.18% and elevated network latency at 8.54ms. Trace analysis reveals CurrencyService operations dominate latency: GetSupportedCurrencies took 221778us (55% of trace), and multiple Convert operations in Trace 3 consumed 679942us, 209700us, 100862us, 96259us, 99296us respectively. This service is the primary bottleneck causing cascading latency across frontend requests."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "ProductCatalogService has elevated CPU at 43.31%. Several traces show anomalous GetProduct latencies: 64192us and 49746us in Trace 5, 47538us in Trace 8, and 18866us in Trace 1. These spikes are significantly higher than typical GetProduct calls (~2000-5000us), indicating CPU contention affecting database query performance."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice is the only service with a resource alarm: MemoryUsageRate(%) exceeded threshold at 87.1% memory usage. While CPU is low (4.88%), the high memory pressure could cause garbage collection pauses or memory allocation delays, contributing to the observed latency in AdService/GetAds calls (23406us, 21247us, 19261us in traces)."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 29,
+      "inject_time": "2022-08-23 12:35:57",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "network_delay",
+          "evidence": "The CartService/GetCart calls show massive discrepancy between frontend perspective (214-224ms) and cartservice perspective (1ms), indicating ~200ms+ network latency. The cartservice pod has NetworkP90 alarm triggered at 223.03ms. This network delay is the dominant factor causing overall request latency (300-400ms per trace)."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod has MemoryUsageRate alarm with memory at 87.12%, which is the highest memory utilization in the system. While the memory pressure may not be the primary cause of latency, it could contribute to slower ad retrieval operations observed in traces (13-24ms durations)."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows elevated CPU at 36.38% (highest among all services), but this appears to be a symptom rather than root cause. The CurrencyService/Convert calls also show frontend-to-service perspective discrepancies (82ms vs 0.7ms in Trace 8), suggesting network delay is affecting currency calls as well, likely due to shared network infrastructure issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 30,
+      "inject_time": "2022-08-23 12:45:08",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "cpu_contention",
+          "evidence": "cartservice CPU usage is at 100.25%, exceeding the threshold. In traces 2, 3, 4, 5, and 7, CartService operations (GetCart, AddItem) account for 40-74% of total request latency, indicating severe CPU resource contention causing request processing delays."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice memory usage is at 87.15%, exceeding the threshold. While adservice response times appear normal in traces, the memory pressure could lead to garbage collection pauses or OOM issues affecting ad serving reliability."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "currencyservice CPU at 46.92% is elevated but below threshold. However, CurrencyService/Convert operations appear frequently in slow traces (traces 3, 5, 7) with significant durations (54-88ms), suggesting it may be experiencing high CPU consumption due to processing load from upstream services."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 31,
+      "inject_time": "2022-08-23 12:53:52",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "network_delay",
+          "evidence": "checkoutservice has NetworkP90 of 235.69ms exceeding threshold. Trace 7 shows PlaceOrder taking 358636us with nested ConvertCurrency calls at 64072us. The high network latency directly impacts checkout operations, causing significant end-to-end delays."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows elevated CPU at 43.74%. Multiple traces show extremely slow Convert operations (Trace 2: 82927us, 97628us, 84946us). The service is a critical dependency for checkoutservice and frontend, and CPU contention is causing high latency in currency conversion operations."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice memory usage at 87.08% exceeds threshold (MemoryUsageRate alarm). Traces show AdService/GetAds operations taking 22933us (Trace 3) and 16751us (Trace 8). High memory pressure can cause GC pauses and slow response times, though this appears secondary to the network and CPU issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 34,
+      "inject_time": "2022-08-23 13:19:06",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CurrencyService operations show extreme latency spikes: GetCurrencyData took 83806us (vs ~600us normal), GetSupportedCurrencies took 95094us (vs ~250us normal), and multiple Convert calls exceeded 100ms. Network P90 at 14.66ms is elevated. The service has CPU at 41% and is called extensively in slow traces (Trace 6: 815ms total with currency operations dominating), indicating CPU resource contention is causing serialization of requests."
+        },
+        {
+          "rank": 2,
+          "service": "checkoutservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "checkoutservice pod shows CPU at 90.87%, which is the highest among all services and exceeded the alarm threshold. While checkoutservice doesn't appear prominently in the sampled traces, the high CPU consumption indicates the service is CPU-bound and may be struggling to process concurrent checkout requests, potentially causing queue buildup and timeouts."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod shows Memory at 87.13%, which exceeded the memory alarm threshold. The GetAds operations in traces show durations of 18-19ms which are relatively long. High memory usage can cause garbage collection pauses and memory allocation delays, contributing to latency in ad serving operations."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 35,
+      "inject_time": "2022-08-23 13:27:51",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 85.01% exceeded threshold, with Network P90 latency of 1403.16ms. Traces show CurrencyService/Convert calls taking 2-5 seconds each, and GetCurrencyData calls showing ~100ms latency. The high CPU is causing the service to be slow in processing requests, creating cascading delays across all dependent services (frontend, checkoutservice, etc.)."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 of 1403.16ms is extremely high compared to other services (next highest is frontend at 10ms). Multiple trace spans within currencyservice show GetCurrencyData operations taking 99-100ms instead of sub-millisecond, indicating the service is struggling to respond to gRPC calls due to CPU pressure."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.08% exceeded threshold. While not as critical as currencyservice's CPU issue, the high memory could be contributing to slower response times in the AdService, with GetAds calls showing 50-80ms latency in some traces."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 36,
+      "inject_time": "2022-08-23 13:37:08",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "NetworkP90 alarm shows 628.58ms latency for currencyservice. All traces show frontend calls to CurrencyService methods (GetSupportedCurrencies, Convert) taking 540-580ms each, while internal currencyservice operations (GetCurrencyData, Carry) complete in <2ms. This 270x difference indicates severe network latency between services, not internal processing issues. Multiple traces (1,2,4,7,8) show this consistent pattern of ~550ms per currency service call."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice has the highest CPU usage at 34.03% among all services. While not critically high, this elevated CPU could be contributing to slower response handling, compounding the network delay effects on the overall request latency."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice shows MemoryUsageRate alarm with 87.14% memory utilization. However, trace data shows adservice responding normally in 18-22ms range, suggesting memory pressure is not causing the primary latency issue observed in the traces. This is likely a secondary symptom rather than root cause."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 37,
+      "inject_time": "2022-08-23 13:45:53",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CurrencyService calls dominate the slow traces with latencies of 80-88ms (Traces 3, 4, 8). CPU at 49.1% is elevated and combined with Network P90 of 9.4ms indicates resource contention. The service is a major bottleneck causing 200+ms total trace durations."
+        },
+        {
+          "rank": 2,
+          "service": "emailservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 101.21% exceeds 100%, indicating complete CPU saturation. The CpuUsageRate alarm was triggered. This severe over-consumption can affect the host node and impact other services."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.23% triggered the MemoryUsageRate alarm. High memory pressure can cause GC overhead and slow response times, contributing to latency in ad serving calls observed in traces."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 38,
+      "inject_time": "2022-08-23 13:54:37",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice has the highest CPU usage at 70.22% and shows extremely high Network P90 latency of 87.44ms. Multiple traces show CurrencyService/Convert operations taking 64-449ms (e.g., Trace 4: 449932us and 184626us), which is orders of magnitude slower than normal. This CPU contention is causing severe latency in currency conversion operations that cascade through the entire request chain."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "productcatalogservice has elevated CPU usage at 46.57%. Traces show GetProduct operations taking up to 83ms (Trace 4: 83426us) and ListProducts taking 37ms (Trace 4: 37342us), indicating CPU resource contention affecting database query processing and catalog operations."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice has MemoryUsageRate of 87.14% which exceeded the threshold alarm. While the memory pressure alone may not cause the primary latency issues, it can contribute to garbage collection pauses and slower ad retrieval operations, as evidenced by GetAds calls taking 20-24ms in traces."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 39,
+      "inject_time": "2022-08-23 14:03:48",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CurrencyService shows elevated CPU at 45.75% and trace data reveals extreme latency spikes in Convert operations (up to 179757us/180ms in Trace 2, 85906us in Trace 5, 82362us in Trace 1). These are abnormally long for simple currency conversion operations, indicating the service is CPU-constrained and cannot process requests efficiently."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "ProductCatalogService has elevated CPU at 51.71% and shows slow GetProduct operations in traces (56017us in Trace 3, 53813us in Trace 3, 35180us in Trace 8). The CPU elevation combined with variable response times suggests CPU contention, possibly exacerbated by upstream CurrencyService delays causing cascading load."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "AdService has memory usage at 87.1% which exceeded the memory alarm threshold. High memory pressure can cause garbage collection pauses and memory allocation delays, potentially impacting the AdService response times observed in traces (17877us, 13091us, 11049us)."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 40,
+      "inject_time": "2022-08-23 14:12:52",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "paymentservice",
+          "fault_type": "network_delay",
+          "evidence": "NetworkP90 of 534.86ms is extremely high and exceeds threshold. This is the most severe metric anomaly in the system. While the trace data doesn't show direct paymentservice calls, the high network latency could indicate network infrastructure issues or service connectivity problems affecting checkout flows."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.08% exceeds the MemoryUsageRate threshold. High memory pressure can cause garbage collection pauses and slow response times. The AdService/GetAds calls in traces show durations up to 25ms, which could be impacted by memory pressure causing GC overhead."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 40.25% is elevated compared to other services. Multiple traces show CurrencyService/GetCurrencyData calls taking 99ms+ (e.g., Trace 2: 99197us, Trace 1: 954us normal vs 3595us). This suggests potential CPU contention affecting currency conversion operations."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 41,
+      "inject_time": "2022-08-23 14:21:54",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CurrencyService shows CPU at 47.94% (2nd highest) and Network P90 at 5.3ms (highest). Multiple traces show CurrencyService/Convert calls taking 72-87ms (Traces 4: 72460us, 87237us, 82539us) and GetSupportedCurrencies taking 48-60ms (Traces 1, 7), which are abnormally high latencies indicating CPU resource consumption issues causing processing delays."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "AdService has MemoryUsageRate alarm with 87.11% memory usage (highest among all services). Traces show AdService/GetAds taking 43ms (Trace 3) and 22ms (Trace 7), with getAdsByCategory operations showing 21ms and 20ms delays. High memory pressure can cause GC pauses and slow database queries as seen in the SELECT addatabase.aditems calls."
+        },
+        {
+          "rank": 3,
+          "service": "paymentservice",
+          "fault_type": "cpu_contention",
+          "evidence": "PaymentService has the highest CPU usage at 92.25% (exceeding threshold) with memory at 33.07%. While not directly visible in the sampled traces, the extreme CPU contention could cause queuing delays for payment processing requests from checkoutservice, impacting overall transaction throughput."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "fault_number": 42,
+      "inject_time": "2022-08-23 14:30:10",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency is 106.84ms, which is 10-100x higher than other services (next highest is frontend at 10ms). All traces show productcatalogservice operations (GetProduct, ListProducts) taking 90-160ms, causing cascading latency to frontend and recommendationservice. SQL query operations show elevated durations (400-1000us per query with multiple queries per request)."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 44.51% is the highest among all services. Multiple traces show CurrencyService/Convert operations taking 70-210ms (e.g., 209921us in Trace 1, 82950us in Trace 2, 84926us in Trace 8), and GetCurrencyData taking up to 83141us. This high CPU combined with slow response times indicates CPU resource contention affecting currency conversion operations."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.05% has exceeded the MemoryUsageRate threshold and triggered an alarm. While the memory pressure is not at critical levels, it could contribute to slower ad retrieval operations observed in traces (GetAds taking 7-33ms). This is a secondary factor compared to the network and CPU issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 43,
+      "inject_time": "2022-08-23 14:47:40",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CurrencyService shows the highest CPU usage at 18.97% among all services. Traces 4 and 7 reveal extremely long CurrencyService/Convert durations (up to 90ms) and repeated GetCurrencyData calls taking 59ms+. The Carry function is called hundreds of times per request, indicating potential algorithmic complexity causing CPU contention. Frontend logs show 'Failed to convert product' errors correlating with these slowdowns."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice memory usage at 87.07% triggered the only resource alarm (MemoryUsageRate exceeded threshold). This high memory pressure could cause garbage collection pauses and service degradation, affecting downstream services like checkoutservice which shows 'Failed to get product' errors."
+        },
+        {
+          "rank": 3,
+          "service": "frontend",
+          "fault_type": "network_delay",
+          "evidence": "Frontend shows the highest network P90 latency at 10ms among all services. This is 3-10x higher than other services and could indicate network contention or downstream service bottlenecks. The frontend logs show multiple 'Request error' messages and cascading failures to dependent services."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 44,
+      "inject_time": "2022-08-23 14:55:55",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 81.26% exceeds threshold. Multiple traces show extremely high latency in ListProducts (up to 583ms), GetProduct (up to 99ms), ParseCatalog (up to 102ms), and ReadCatalog (up to 102ms). SQL queries show anomalous delays reaching 92ms (sql.conn.query 92363us). The service is the primary bottleneck causing cascading latency across frontend requests."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.11% exceeds threshold. While CPU is low (3.5%), the high memory pressure could cause garbage collection pauses or memory allocation delays affecting ad retrieval operations. Logs show normal operation but memory pressure may cause intermittent slowdowns."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 38.62% is elevated but below threshold. Network P90 latency at 5.9ms is the highest among services. Multiple Convert operations show high latency (up to 185ms, 142ms, 93ms). The service handles many currency conversions per request and may be experiencing CPU resource contention under load."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 45,
+      "inject_time": "2022-08-23 15:04:28",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "exception",
+          "evidence": "Log shows 'failed to scan mysql query result: Query product error.' causing cascading failures in checkoutservice ('Failed to get product') and frontend ('Could not retrieve product', 'Failed to get product recommendations'). The database query exception prevents product retrieval across multiple dependent services."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 18.33% is significantly higher than other services (next highest is 7.38%). Trace 8 shows anomalous Convert call duration of 92641us (vs typical 3-6ms), indicating processing delays. The repeated CurrencyService/Carry operations suggest CPU-intensive computation under contention."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.12% exceeded the MemoryUsageRate threshold, triggering an alarm. While the service appears functional in logs, high memory pressure can cause latency spikes and potential OOM situations affecting request processing."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 46,
+      "inject_time": "2022-08-23 15:12:49",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "network_delay",
+          "evidence": "NetworkP90 at 512.61ms is extremely high and triggered an alarm. All 8 traces show RecommendationService/ListRecommendations consuming 475-490ms (485855us, 477007us, 489932us, 475745us, 485845us, 484397us, 490901us), which is the dominant latency contributor in nearly every trace. This network delay cascades to frontend requests taking 500-900ms total."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "MemoryUsageRate at 87.13% exceeded threshold. While adservice operations in traces show 20-40ms latency (acceptable), the high memory pressure could cause garbage collection pauses or memory allocation delays affecting overall service responsiveness."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 42.32% is the highest among all services. However, trace data shows productcatalogservice operations completing in 2-3ms (GetProduct: 2000-3000us, ListProducts: 2500-3000us), suggesting CPU is not the primary bottleneck but may contribute to latency under sustained load."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 47,
+      "inject_time": "2022-08-23 15:21:41",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 85.95% (highest among all services) triggered an alarm. Traces show ListRecommendations taking 1446ms (Trace 3) and 854ms (Trace 5), with downstream calls to productcatalogservice/ListProducts taking 199ms and 499ms respectively. The high CPU is causing the recommendation service to process requests slowly, creating a bottleneck in the request chain."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency at 92.45ms is significantly elevated compared to other services (next highest is frontend at 10ms). Multiple traces show productcatalogservice GetProduct calls taking 81ms and 66ms. This high network latency compounds when called repeatedly by recommendationservice, amplifying the overall latency impact."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.11% exceeded the threshold alarm. While not directly in the critical path of the slowest traces, the memory pressure could cause GC pauses and contribute to latency in ad serving operations, which appear in multiple traces with durations ranging from 10-40ms."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 48,
+      "inject_time": "2022-08-23 15:29:49",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 81.23% exceeds threshold and directly correlates with extreme latency in all traces. The RecommendationService/ListRecommendations calls dominate trace durations (2.3s to 4.3s per call), causing frontend requests to take 3-4.5 seconds. The service is consuming excessive CPU resources, likely due to inefficient algorithms or an infinite loop as indicated by the 'Inject cpu successfully' log messages."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.13% exceeds threshold. While not the primary cause of latency, memory pressure can cause garbage collection pauses and slow down ad retrieval operations, contributing to overall system slowness in some traces."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU at 19.35% and Network P90 at 12.12ms are elevated. In Trace 7, the ListProducts call from recommendationservice took 699ms, indicating the productcatalogservice may be experiencing CPU contention when handling requests from the overloaded recommendationservice, creating a cascading effect."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 49,
+      "inject_time": "2022-08-23 15:38:52",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency of 494.76ms is extremely elevated (100x higher than other services). Traces show ShippingService/GetQuote taking 481-495ms and ShipOrder taking 488ms consistently across multiple traces, directly impacting checkout flow latency (Trace 1 shows 1.24s total with shipping calls consuming ~80% of that time)."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 63.16% is the highest among all services (next is productcatalogservice at 36.1%). Traces show CurrencyService/Convert calls with sporadic high latency (82ms, 79ms, 74ms in Trace 8) and GetSupportedCurrencies taking 45-87ms, indicating CPU resource contention affecting request processing."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.12% exceeds the memory threshold alarm. Traces show AdService/GetAds calls taking 25-53ms with occasional spikes, and logs show database queries against addatabase.aditems. High memory pressure could be causing GC pauses or memory allocation delays affecting ad retrieval performance."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 50,
+      "inject_time": "2022-08-23 15:47:43",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 100.78% exceeds threshold, and trace data shows GetQuote taking 482976us (483ms) with CreateQuoteFromCount at 199611us (200ms), indicating severe CPU saturation causing request queuing and high latency"
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.12% exceeds threshold, though trace latencies are moderate (5-50ms), this memory pressure could cause garbage collection pauses and contribute to overall system degradation"
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU at 52.75% is elevated but below critical threshold; trace durations show GetSupportedCurrencies and Convert operations completing in normal ranges, suggesting this is a secondary effect rather than primary cause"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 51,
+      "inject_time": "2022-08-23 15:56:24",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 88.57% exceeds threshold. Traces 6 and 8 show ShippingService/GetQuote taking 511-534ms with QuoteByCountFloat consuming 500+ ms each, indicating severe CPU contention causing slow response times."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 65.11% is elevated. Trace 1 shows multiple CurrencyService/Convert calls with highly variable latencies ranging from 13ms to 498ms, with GetCurrencyData taking up to 91ms, suggesting CPU pressure affecting processing speed."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 87.14% exceeds threshold. While trace durations are relatively normal, the memory pressure could cause garbage collection pauses or memory allocation delays affecting ad retrieval operations."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 52,
+      "inject_time": "2022-08-23 16:05:02",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod (adservice-5f6585d649-fnmft) has MemoryUsageRate of 87.09% which exceeded the threshold and triggered an alarm. In traces 1, 4, 5, and 8, the AdService/GetAds call dominates total request latency (85-94% of 500-700ms total duration), indicating severe performance degradation in adservice. The memory pressure is causing slow response times despite the actual database query taking only ~850us."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "currencyservice shows elevated CPU usage at 40.64%, the highest among all services. While not at alarm threshold, this elevated CPU combined with network P90 of 6.58ms (higher than most other services) suggests CPU contention affecting its response times in the call chain."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "productcatalogservice has CPU usage at 30.7%, the second highest after currencyservice. It appears in multiple call chains (GetProduct, ListProducts) and shows some elevated durations (e.g., 41293us for GetProduct in Trace 8). The CPU pressure may be contributing to slower database query responses observed in the traces."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 53,
+      "inject_time": "2022-08-23 16:13:38",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CurrencyService shows extremely high latency in traces: Convert operations taking 100-600ms, with GetCurrencyData taking up to 206ms and the Carry operation consuming 78ms. CPU usage is at 48.85%, the second highest in the system. The repeated high-latency currency conversions across multiple traces (Trace 3 shows 613ms for a single Convert call) indicate CPU over-consumption in the currency conversion logic, likely due to inefficient computation in the Carry function."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "adservice pod has memory usage at 95.91%, which exceeds the MemoryUsageRate threshold and triggered an alarm. While trace durations for adservice operations (24-26ms) appear reasonable, the critical memory pressure could lead to garbage collection pauses, memory swapping, or OOM events that would cause intermittent failures or latency spikes."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "productcatalogservice has elevated CPU usage at 46.67%, the third highest in the system. While SQL query durations are relatively normal (400-700us), the high CPU combined with frequent calls from frontend and recommendationservice could cause CPU resource contention, leading to queuing delays for incoming requests."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 54,
+      "inject_time": "2022-08-23 16:22:53",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 95.44% exceeds threshold (MemoryUsageRate alarm triggered). This extreme memory pressure directly correlates with the 'Failed to retrieve ads' error logged by frontend. The AdService calls in traces show elevated latencies (7860us-20232us) and the service performs database queries (SELECT addatabase.aditems) which would be degraded under memory pressure."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage at 59.28% is significantly elevated compared to other services. Multiple traces show CurrencyService operations as major latency contributors: GetSupportedCurrencies taking 41396us-133384us (36-46% of trace duration) and Convert taking 6257us-85854us. This high CPU contention causes cascading delays across dependent services like frontend, checkoutservice, and recommendationservice."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU at 30.08% with traces showing ProductCatalogService/GetProduct calls taking up to 76888us (Trace 5) and 44693us (Trace 2). The service performs numerous SQL queries (sql.conn.query durations up to 72992us in one instance) and handles high request volume from frontend, recommendationservice, and checkoutservice. The CPU consumption indicates processing bottleneck under load."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 55,
+      "inject_time": "2022-08-23 16:31:35",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 56,
+      "inject_time": "2022-08-23 16:40:57",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    }
+  ]
+}

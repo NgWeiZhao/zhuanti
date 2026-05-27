@@ -1,0 +1,93 @@
+[INFO]2026-05-25 16:18:03,091 main_llm.py:133: Prompt length: 39341 characters
+[ERROR]2026-05-25 16:18:03,091 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 16:18:39,350 main_llm.py:133: Prompt length: 28004 characters
+[ERROR]2026-05-25 16:18:39,350 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 16:19:25,590 main_llm.py:133: Prompt length: 40685 characters
+[ERROR]2026-05-25 16:19:25,590 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 16:20:26,129 main_llm.py:133: Prompt length: 29821 characters
+[ERROR]2026-05-25 16:20:26,130 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 16:24:42,770 main_llm.py:133: Prompt length: 39341 characters
+[ERROR]2026-05-25 16:24:42,772 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 16:25:21,150 main_llm.py:133: Prompt length: 28004 characters
+[ERROR]2026-05-25 16:25:21,150 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 16:26:43,508 main_llm.py:133: Prompt length: 39341 characters
+[INFO]2026-05-25 16:43:28,951 main_llm.py:133: Prompt length: 28004 characters
+[INFO]2026-05-25 16:45:26,008 main_llm.py:133: Prompt length: 40685 characters
+[INFO]2026-05-25 16:47:58,054 main_llm.py:133: Prompt length: 29821 characters
+[INFO]2026-05-25 16:50:00,142 main_llm.py:133: Prompt length: 41032 characters
+[INFO]2026-05-25 18:43:33,884 main_llm.py:133: Prompt length: 38601 characters
+[INFO]2026-05-25 18:45:25,633 main_llm.py:133: Prompt length: 38996 characters
+[INFO]2026-05-25 18:52:38,788 main_llm.py:133: Prompt length: 41638 characters
+[ERROR]2026-05-25 18:53:56,702 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[ERROR]2026-05-25 18:54:11,722 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[INFO]2026-05-25 18:54:27,342 main_llm.py:133: Prompt length: 37329 characters
+[INFO]2026-05-25 18:56:04,528 main_llm.py:133: Prompt length: 31575 characters
+[INFO]2026-05-25 18:58:17,247 main_llm.py:133: Prompt length: 45623 characters
+[INFO]2026-05-25 19:01:42,104 main_llm.py:133: Prompt length: 39341 characters
+[ERROR]2026-05-25 19:01:42,106 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 19:02:17,355 main_llm.py:133: Prompt length: 28004 characters
+[ERROR]2026-05-25 19:02:17,355 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 19:03:00,640 main_llm.py:133: Prompt length: 40685 characters
+[ERROR]2026-05-25 19:03:00,640 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 19:03:57,581 main_llm.py:133: Prompt length: 29821 characters
+[ERROR]2026-05-25 19:03:57,581 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 19:04:49,569 main_llm.py:133: Prompt length: 41032 characters
+[ERROR]2026-05-25 19:04:49,570 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 19:05:49,991 main_llm.py:133: Prompt length: 38601 characters
+[ERROR]2026-05-25 19:05:49,993 main_llm.py:145: LLM call failed: No API key provided. Set NVIDIA_API_KEY environment variable or pass --api-key parameter.
+[INFO]2026-05-25 19:08:05,715 main_llm.py:133: Prompt length: 39341 characters
+[INFO]2026-05-25 20:00:19,023 main_llm.py:133: Prompt length: 28004 characters
+[INFO]2026-05-25 20:02:04,894 main_llm.py:133: Prompt length: 40685 characters
+[INFO]2026-05-25 20:03:37,181 main_llm.py:133: Prompt length: 29821 characters
+[INFO]2026-05-25 20:05:24,124 main_llm.py:133: Prompt length: 41032 characters
+[INFO]2026-05-25 20:07:10,952 main_llm.py:133: Prompt length: 38601 characters
+[INFO]2026-05-25 20:08:56,862 main_llm.py:133: Prompt length: 38996 characters
+[INFO]2026-05-25 20:10:28,663 main_llm.py:133: Prompt length: 41638 characters
+[ERROR]2026-05-25 20:11:28,525 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[ERROR]2026-05-25 20:11:36,058 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[INFO]2026-05-25 20:11:44,650 main_llm.py:133: Prompt length: 37329 characters
+[INFO]2026-05-25 20:13:09,819 main_llm.py:133: Prompt length: 31575 characters
+[INFO]2026-05-25 20:15:00,175 main_llm.py:133: Prompt length: 45623 characters
+[INFO]2026-05-25 20:16:47,999 main_llm.py:133: Prompt length: 45235 characters
+[INFO]2026-05-25 20:23:23,027 main_llm.py:133: Prompt length: 32941 characters
+[INFO]2026-05-25 20:41:17,110 main_llm.py:133: Prompt length: 34011 characters
+[INFO]2026-05-25 20:53:39,649 main_llm.py:133: Prompt length: 38166 characters
+[INFO]2026-05-25 20:55:33,459 main_llm.py:133: Prompt length: 28964 characters
+[INFO]2026-05-25 20:57:21,848 main_llm.py:133: Prompt length: 40197 characters
+[INFO]2026-05-25 20:59:06,096 main_llm.py:133: Prompt length: 40603 characters
+[INFO]2026-05-25 21:00:41,056 main_llm.py:133: Prompt length: 42222 characters
+[INFO]2026-05-25 21:02:31,254 main_llm.py:133: Prompt length: 41621 characters
+[INFO]2026-05-25 21:09:45,992 main_llm.py:133: Prompt length: 37729 characters
+[INFO]2026-05-25 21:11:40,195 main_llm.py:133: Prompt length: 40976 characters
+[INFO]2026-05-25 21:18:45,914 main_llm.py:133: Prompt length: 36206 characters
+[INFO]2026-05-25 21:25:29,280 main_llm.py:133: Prompt length: 24252 characters
+[INFO]2026-05-25 21:37:01,707 main_llm.py:133: Prompt length: 35199 characters
+[INFO]2026-05-25 21:38:26,530 main_llm.py:133: Prompt length: 37909 characters
+[INFO]2026-05-25 21:50:09,490 main_llm.py:133: Prompt length: 34789 characters
+[INFO]2026-05-25 21:51:40,162 main_llm.py:133: Prompt length: 30897 characters
+[INFO]2026-05-25 21:52:55,938 main_llm.py:133: Prompt length: 37682 characters
+[ERROR]2026-05-25 21:59:00,592 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[ERROR]2026-05-25 21:59:09,656 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[INFO]2026-05-25 21:59:50,160 main_llm.py:133: Prompt length: 39598 characters
+[INFO]2026-05-25 22:01:05,454 main_llm.py:133: Prompt length: 39033 characters
+[INFO]2026-05-25 22:02:19,883 main_llm.py:133: Prompt length: 30834 characters
+[INFO]2026-05-25 22:08:59,627 main_llm.py:133: Prompt length: 32398 characters
+[INFO]2026-05-25 22:42:17,705 main_llm.py:133: Prompt length: 39210 characters
+[INFO]2026-05-25 22:53:46,386 main_llm.py:133: Prompt length: 40588 characters
+[INFO]2026-05-25 22:55:29,169 main_llm.py:133: Prompt length: 33277 characters
+[INFO]2026-05-25 22:56:51,383 main_llm.py:133: Prompt length: 36116 characters
+[INFO]2026-05-25 22:58:44,797 main_llm.py:133: Prompt length: 42759 characters
+[INFO]2026-05-25 23:05:04,120 main_llm.py:133: Prompt length: 20287 characters
+[INFO]2026-05-25 23:38:08,650 main_llm.py:133: Prompt length: 39018 characters
+[INFO]2026-05-25 23:39:30,412 main_llm.py:133: Prompt length: 17326 characters
+[INFO]2026-05-25 23:41:25,246 main_llm.py:133: Prompt length: 36294 characters
+[INFO]2026-05-25 23:43:31,121 main_llm.py:133: Prompt length: 31631 characters
+[INFO]2026-05-25 23:44:41,447 main_llm.py:133: Prompt length: 44957 characters
+[INFO]2026-05-25 23:46:34,294 main_llm.py:133: Prompt length: 35859 characters
+[INFO]2026-05-25 23:48:01,752 main_llm.py:133: Prompt length: 38144 characters
+[INFO]2026-05-25 23:49:25,965 main_llm.py:133: Prompt length: 37833 characters
+[INFO]2026-05-25 23:56:01,964 main_llm.py:133: Prompt length: 25334 characters
+[INFO]2026-05-25 23:57:34,879 main_llm.py:133: Prompt length: 37099 characters
+[INFO]2026-05-26 00:04:08,835 main_llm.py:133: Prompt length: 33031 characters
+[INFO]2026-05-26 11:30:29,886 main_llm.py:133: Prompt length: 36283 characters
+[INFO]2026-05-26 11:32:14,817 main_llm.py:133: Prompt length: 35807 characters

@@ -1,0 +1,56 @@
+[INFO]2026-05-26 12:28:23,960 main_llm.py:133: Prompt length: 75328 characters
+[INFO]2026-05-26 12:40:09,074 main_llm.py:133: Prompt length: 63991 characters
+[INFO]2026-05-26 12:46:55,105 main_llm.py:133: Prompt length: 76672 characters
+[INFO]2026-05-26 13:03:59,442 main_llm.py:133: Prompt length: 65808 characters
+[INFO]2026-05-26 13:52:14,583 main_llm.py:133: Prompt length: 77019 characters
+[INFO]2026-05-26 13:53:59,993 main_llm.py:133: Prompt length: 74588 characters
+[INFO]2026-05-26 14:05:50,207 main_llm.py:133: Prompt length: 74983 characters
+[INFO]2026-05-26 14:07:28,655 main_llm.py:133: Prompt length: 77625 characters
+[ERROR]2026-05-26 14:08:38,498 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[ERROR]2026-05-26 14:08:52,328 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[INFO]2026-05-26 14:09:07,870 main_llm.py:133: Prompt length: 73316 characters
+[INFO]2026-05-26 14:15:55,192 main_llm.py:133: Prompt length: 67562 characters
+[INFO]2026-05-26 14:22:45,483 main_llm.py:133: Prompt length: 81610 characters
+[INFO]2026-05-26 14:24:50,461 main_llm.py:133: Prompt length: 81222 characters
+[INFO]2026-05-26 14:26:58,880 main_llm.py:133: Prompt length: 68928 characters
+[INFO]2026-05-26 14:38:47,442 main_llm.py:133: Prompt length: 69998 characters
+[INFO]2026-05-26 14:40:48,055 main_llm.py:133: Prompt length: 74153 characters
+[INFO]2026-05-26 14:42:41,427 main_llm.py:133: Prompt length: 64951 characters
+[INFO]2026-05-26 14:44:20,342 main_llm.py:133: Prompt length: 76184 characters
+[INFO]2026-05-26 14:45:35,483 main_llm.py:133: Prompt length: 76590 characters
+[INFO]2026-05-26 14:47:13,662 main_llm.py:133: Prompt length: 78209 characters
+[INFO]2026-05-26 14:48:48,632 main_llm.py:133: Prompt length: 77608 characters
+[INFO]2026-05-26 14:50:52,621 main_llm.py:133: Prompt length: 73716 characters
+[INFO]2026-05-26 14:53:36,407 main_llm.py:133: Prompt length: 76963 characters
+[INFO]2026-05-26 20:17:56,800 main_llm.py:133: Prompt length: 60714 characters
+[INFO]2026-05-26 20:27:19,659 main_llm.py:133: Prompt length: 48760 characters
+[INFO]2026-05-26 20:54:17,912 main_llm.py:133: Prompt length: 59707 characters
+[INFO]2026-05-26 20:56:27,499 main_llm.py:133: Prompt length: 62417 characters
+[INFO]2026-05-26 21:57:02,442 main_llm.py:133: Prompt length: 59297 characters
+[INFO]2026-05-26 21:58:33,215 main_llm.py:133: Prompt length: 55405 characters
+[INFO]2026-05-26 22:00:04,632 main_llm.py:133: Prompt length: 62190 characters
+[ERROR]2026-05-26 22:00:59,924 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[ERROR]2026-05-26 22:01:11,486 main_llm.py:122: Failed to collect profiling data: float() argument must be a string or a real number, not 'Series'
+[INFO]2026-05-26 22:02:07,536 main_llm.py:133: Prompt length: 64106 characters
+[INFO]2026-05-26 22:18:28,756 main_llm.py:133: Prompt length: 63541 characters
+[INFO]2026-05-26 22:19:45,866 main_llm.py:133: Prompt length: 55342 characters
+[INFO]2026-05-26 22:26:09,738 main_llm.py:133: Prompt length: 56906 characters
+[INFO]2026-05-26 22:27:51,464 main_llm.py:133: Prompt length: 63718 characters
+[INFO]2026-05-26 22:34:32,418 main_llm.py:133: Prompt length: 65096 characters
+[INFO]2026-05-26 22:52:37,052 main_llm.py:133: Prompt length: 57785 characters
+[INFO]2026-05-26 22:59:11,731 main_llm.py:133: Prompt length: 60624 characters
+[INFO]2026-05-26 23:00:38,329 main_llm.py:133: Prompt length: 67267 characters
+[INFO]2026-05-26 23:01:55,225 main_llm.py:133: Prompt length: 44795 characters
+[INFO]2026-05-26 23:39:26,942 main_llm.py:133: Prompt length: 63526 characters
+[INFO]2026-05-26 23:40:13,053 main_llm.py:133: Prompt length: 41834 characters
+[INFO]2026-05-26 23:42:07,850 main_llm.py:133: Prompt length: 60802 characters
+[INFO]2026-05-26 23:48:22,943 main_llm.py:133: Prompt length: 56139 characters
+[INFO]2026-05-26 23:49:29,950 main_llm.py:133: Prompt length: 69465 characters
+[INFO]2026-05-26 23:50:54,862 main_llm.py:133: Prompt length: 60367 characters
+[INFO]2026-05-26 23:52:17,276 main_llm.py:133: Prompt length: 62652 characters
+[INFO]2026-05-26 23:53:29,878 main_llm.py:133: Prompt length: 62341 characters
+[INFO]2026-05-26 23:55:19,765 main_llm.py:133: Prompt length: 49842 characters
+[INFO]2026-05-26 23:57:23,645 main_llm.py:133: Prompt length: 61607 characters
+[INFO]2026-05-27 00:25:03,604 main_llm.py:133: Prompt length: 57539 characters
+[INFO]2026-05-27 00:36:35,257 main_llm.py:133: Prompt length: 60791 characters
+[INFO]2026-05-27 00:38:07,658 main_llm.py:133: Prompt length: 60315 characters

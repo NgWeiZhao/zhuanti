@@ -1,0 +1,701 @@
+{
+  "config": {
+    "namespace": "hipster",
+    "provider": "gemini",
+    "model": null,
+    "compare_normal": false,
+    "timestamp": "2026-05-20 17:44:12.750078"
+  },
+  "accuracy": {
+    "top1": 16.071428571428573,
+    "top3": 19.642857142857142,
+    "top1_count": 9,
+    "top3_count": 11,
+    "total": 56,
+    "not_found": 45
+  },
+  "detailed_results": [
+    {
+      "fault_number": 1,
+      "inject_time": "2022-08-22 03:53:54",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 81.35% with an alarm. Traces show frontend calls to downstream services taking hundreds of milliseconds, while internal operations of those services are fast, indicating frontend is bottlenecked by its own CPU."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage at 81.28% with an alarm. High memory can cause performance degradation (e.g., GC pauses), contributing to its high Network P90 (186.04ms) and slow responses observed in traces."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage at 39.95% is elevated. Its Network P90 is also high (191.83ms), suggesting it's under load and contributing to overall latency, especially with frequent calls from the frontend."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 2,
+      "inject_time": "2022-08-22 04:02:07",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Resource metrics show 52.41% CPU usage. Request traces show internal `currencyservice/hipstershop.CurrencyService/GetCurrencyData` calls taking up to 83269us (83ms), indicating high CPU consumption leading to slow processing and significant delays for callers like frontend."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Resource metrics show 81.31% memory usage. A resource alarm explicitly states 'MemoryUsageRate(%) exceeded threshold' for the adservice pod, indicating memory pressure."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Currencyservice itself has an elevated Network P90 of 5.59ms. The frontend service, a primary caller of currencyservice, shows the highest Network P90 of 10ms, indicating significant network latency when communicating with currencyservice, likely exacerbated by its high CPU consumption."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 3,
+      "inject_time": "2022-08-22 04:10:20",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The currencyservice pod shows 54.79% CPU usage and a Network P90 of 91.07ms. Request traces indicate frontend waits ~90-100ms for currencyservice calls (e.g., GetSupportedCurrencies, Convert), directly correlating high internal CPU consumption with external latency."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The adservice pod has a MemoryUsageRate alarm (81.31%) and a Network P90 of 84.27ms. Request traces show frontend waiting ~90-100ms for adservice/GetAds. High memory pressure can lead to performance degradation and increased latency."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The productcatalogservice pod shows 26.69% CPU usage and a Network P90 of 85.49ms. Request traces reveal frontend waiting ~80-170ms for productcatalogservice calls (e.g., GetProduct, ListProducts). The service also performs multiple internal SQL queries, contributing to its processing load and latency."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 4,
+      "inject_time": "2022-08-22 04:18:35",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "Resource metrics show 70.22% CPU usage. Request traces (e.g., Trace 3) show frontend perceiving CurrencyService/Convert calls taking ~300ms, while the internal currencyservice processing for the same call is only ~1.4ms. This large discrepancy indicates requests are queuing and waiting for CPU resources on the currencyservice."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Resource metrics show 46.36% CPU usage. Request traces (e.g., Trace 8) show productcatalogservice/hipstershop.ProductCatalogService/GetProduct taking ~468ms internally, indicating significant processing time within the service itself, consuming high CPU."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Resource metrics show 81.32% memory usage, and there is an explicit alarm for MemoryUsageRate(%) exceeding its threshold. High memory pressure can lead to performance degradation (e.g., increased garbage collection, swapping) and instability, contributing to overall system latency."
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 5,
+      "inject_time": "2022-08-22 04:27:03",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "network_delay",
+          "evidence": "Resource alarm for cartservice shows NetworkP90(ms) exceeded threshold (252.6ms). Request traces consistently show frontend and checkoutservice experiencing ~250ms delays when calling cartservice, while cartservice's internal processing time is only ~1-2ms, indicating network latency as the bottleneck."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Resource metrics show currencyservice with high CPU usage (44.97%). Request traces show significant client-side delays for CurrencyService/Convert calls (e.g., 95ms, 138ms, 345ms), despite fast internal processing, suggesting CPU saturation is causing request queueing or slow response times."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Resource alarm for adservice indicates MemoryUsageRate(%) exceeded threshold (81.38%). While this is a critical resource issue, request traces do not show adservice calls as a primary contributor to overall high request latency during the fault period, making it a less direct cause of the observed performance degradation compared to cartservice and currencyservice."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 6,
+      "inject_time": "2022-08-22 04:36:03",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The cartservice pod has exceeded its CPU usage threshold (88.3%). Multiple request traces (e.g., Trace 3, 4, 5, 6, 7, 8) show the internal 'cartservice/hipstershop.CartService/GetCart' operation consistently taking a very long time (98ms - 105ms), directly correlating high CPU with slow processing."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "The currencyservice pod shows high CPU usage (70.22%). Request traces (e.g., Trace 7, 3, 5) reveal a significant discrepancy between the frontend's perceived duration for CurrencyService calls (e.g., 319ms, 83ms, 80ms) and the actual internal processing time within currencyservice (e.g., 188us, 3.6ms, 1.2ms). This suggests requests are queuing up or experiencing delays before being processed due to the high CPU load, leading to perceived network delay from the caller's perspective."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The adservice pod has exceeded its memory usage threshold (81.3%). While its CPU is low, high memory pressure can lead to performance degradation, such as increased garbage collection pauses or swapping, which can contribute to the observed 10-27ms durations for AdService calls in various traces."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 7,
+      "inject_time": "2022-08-22 04:44:16",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The checkoutservice pod is consuming 100.8% of CPU and has an active CPU usage alarm. This indicates severe resource exhaustion, making it a critical bottleneck for any checkout operations."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Trace 7 shows a 'productcatalogservice/sql.conn.query' operation taking an exceptionally long 85723us (~85ms). This indicates a significant bottleneck in database interaction, likely due to slow query execution or network latency to the database, directly impacting product retrieval and overall frontend responsiveness."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Trace 5 shows 'currencyservice/hipstershop.CurrencyService/GetCurrencyData' taking 67449us (~67ms), which is anomalously longer than its parent gRPC call (955us) and the frontend's conversion call (3427us). This suggests a prolonged internal blocking operation or heavy computation within the service for currency data retrieval."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 8,
+      "inject_time": "2022-08-22 04:52:55",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Resource metrics show currencyservice with 70.79% CPU usage. Request traces (e.g., Trace 6: frontend/hipstershop.CurrencyService/Convert taking 711026us; Trace 2: frontend/hipstershop.CurrencyService/GetSupportedCurrencies taking 465849us) indicate severe latency in currency operations, directly correlating with high CPU consumption."
+        },
+        {
+          "rank": 2,
+          "service": "checkoutservice",
+          "fault_type": "network_delay",
+          "evidence": "Resource alarms show checkoutservice's NetworkP90(ms) exceeded threshold (271.15ms). Request trace 1 shows checkoutservice/hipstershop.CheckoutService/PlaceOrder taking 310224us, with significant time spent in PrepareOrderItemsAndShippingQuoteFromCart (282255us) which involves multiple currency conversions. This indicates checkoutservice is experiencing delays waiting for responses from downstream services, most notably the CPU-bound currencyservice."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "Resource metrics show productcatalogservice with 51.81% CPU usage. Request traces (e.g., Trace 3: productcatalogservice/hipstershop.ProductCatalogService/GetProduct taking 70786us; Trace 5: productcatalogservice/hipstershop.ProductCatalogService/ListProducts taking 53682us) show significant processing time within the service, contributing to overall request latency."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 11,
+      "inject_time": "2022-08-22 05:18:09",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage is 101.34% and triggered a 'CpuUsageRate(%) exceeded threshold' alarm. Request traces (e.g., Trace 6) show internal currencyservice operations like GetCurrencyData and Convert taking up to 1.4 seconds, indicating severe internal processing slowness due to CPU saturation."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "The Network P90 for currencyservice is 1801.85ms. Request traces consistently show frontend experiencing multi-second delays (e.g., 2-6 seconds) when calling currencyservice, even when some internal currencyservice operations complete in milliseconds, suggesting significant network latency or queuing before/after processing."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage is 81.35% and triggered a 'MemoryUsageRate(%) exceeded threshold' alarm. While not the primary cause of multi-second delays, high memory usage can lead to performance degradation (e.g., increased garbage collection) and system instability."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 12,
+      "inject_time": "2022-08-22 05:27:06",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "The currencyservice has an alarm for NetworkP90 (652.03ms) exceeding its threshold. Request traces show frontend spending hundreds of milliseconds (e.g., ~0.6s per call) waiting for currencyservice responses, accounting for the majority of the total trace duration. However, internal operations within currencyservice are very fast (microseconds), indicating the delay is in network communication or request queuing before processing."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The currencyservice exhibits 46.35% CPU usage. While its internal processing logic is fast, this relatively high CPU, coupled with the significant network delay, suggests the service might be overloaded or struggling to handle the request volume, leading to requests queuing up and manifesting as network latency for clients."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The adservice has an alarm for MemoryUsageRate(%) exceeding its threshold, with 81.42% memory usage. Although its calls in traces are not the primary cause of the observed end-to-end latency, high memory pressure is a critical issue that can lead to performance degradation (e.g., increased garbage collection, swapping) or even OOM kills, indicating a potential instability point."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 13,
+      "inject_time": "2022-08-22 05:35:34",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 14,
+      "inject_time": "2022-08-22 05:43:48",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The currencyservice exhibits very high CPU usage (70.81%). Request traces show multiple 'CurrencyService/Convert' calls from the frontend taking extremely long durations (e.g., 73ms, 101ms, 99ms, 87ms, 92ms in Trace 1; 82ms in Trace 5). Internal spans within currencyservice, such as 'GetCurrencyData' (68ms) and 'Carry' (66ms) in Trace 5, confirm that the service's internal processing is slow, directly correlating with its high CPU consumption and significantly contributing to overall request latency."
+        },
+        {
+          "rank": 2,
+          "service": "emailservice",
+          "fault_type": "network_delay",
+          "evidence": "The emailservice has a critical alarm for NetworkP90(ms) exceeding its threshold, with an observed value of 869.85ms. This indicates severe network latency when communicating with or from the emailservice. While not directly impacting the provided frontend browsing traces, this level of network delay would significantly impact critical operations like order confirmation during checkout, leading to a poor user experience for a core business flow."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The adservice has an alarm for MemoryUsageRate(%) exceeding its threshold, with 81.39% memory utilization. Request traces show 'AdService/GetAds' calls taking significant time (e.g., 30ms in Trace 8). Further internal analysis reveals that 'AdService/getAdsByCategory' calls are slow (15ms, 13ms in Trace 8), while the underlying database queries are relatively fast (2.5ms, 1.1ms). This suggests that the application logic within adservice is experiencing performance degradation, likely due to memory pressure causing increased garbage collection pauses or swapping."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 15,
+      "inject_time": "2022-08-22 05:52:54",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 16,
+      "inject_time": "2022-08-22 06:01:18",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "paymentservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage is 82.15%, exceeding the configured threshold and triggering an alarm. Network P90 is also the highest at 29.48ms. Request Trace 3 shows the critical 'PaymentService/Charge' call taking 38875us (38.8ms), indicating significant processing delays due to CPU saturation."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage is high at 53.86%, and Network P90 is elevated at 10.46ms. Multiple request traces (e.g., Trace 4, 6, 7) show 'CurrencyService/GetSupportedCurrencies' and 'CurrencyService/Convert' calls taking extremely long durations (e.g., 106ms, 94ms, 101ms, 40ms), directly contributing to overall frontend latency. This high CPU suggests a bottleneck in currency conversion logic."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage is elevated at 38.84%. Request traces (e.g., Trace 6, 7) show 'ProductCatalogService/GetProduct' calls taking very long (e.g., 272ms, 69ms). Internal operations like 'ParseCatalog' and 'ReadCatalog' also show significant durations (e.g., 17.9ms, 17.8ms in Trace 3). The SQL queries within the service are fast, indicating the bottleneck is in the application logic processing the catalog data, consuming CPU."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 17,
+      "inject_time": "2022-08-22 06:35:39",
+      "inject_pod": "productcatalogservice-668d5f85fb-wckp8",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage is 87.74% and triggered a CpuUsageRate alarm. Request traces show 'productcatalogservice/ListProducts', 'ParseCatalog', and 'ReadCatalog' methods consistently taking hundreds of milliseconds (e.g., 200-400ms), directly causing significant overall request latency. This indicates the service is CPU-bound processing catalog data."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage is 49.3%, which is significantly elevated. Network P90 is 6.47ms, higher than most services. Traces show multiple calls to 'currencyservice/Convert' from the frontend, some of which contribute to overall trace duration (e.g., 90ms from frontend perspective in Trace 4). This suggests the service is under CPU strain, contributing to request latency."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage is 81.4% and triggered a MemoryUsageRate alarm. While individual adservice calls in the sampled traces appear fast, high memory pressure is a critical fault that can lead to performance degradation (e.g., increased garbage collection, swapping) and potential instability, even if not the primary cause of the observed latency spikes."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 18,
+      "inject_time": "2022-08-22 06:52:56",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "network_delay",
+          "evidence": "The 'recommendationservice' has a NetworkP90(ms) alarm (502.66ms). Multiple slow request traces (e.g., Trace 2, 4, 5, 6, 8) show the 'frontend' service waiting approximately 500ms for 'recommendationservice/ListRecommendations', while the internal processing within 'recommendationservice' for these calls is much faster (e.g., 6-14ms). This indicates a significant network latency or queueing delay before processing requests by 'recommendationservice'."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The 'currencyservice' exhibits high CPU usage (58.29%). Request traces (e.g., Trace 2, 6) show the 'frontend' waiting 40-90ms for 'CurrencyService/Convert' calls, which is significantly longer than the actual internal processing time within 'currencyservice' (0.8-1.2ms). This discrepancy, coupled with high CPU, suggests that the service is experiencing delays in processing requests due to CPU over-consumption, leading to increased response times for callers."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The 'adservice' has a MemoryUsageRate(%) alarm, exceeding its threshold with 81.42% memory usage. While its direct contribution to the observed latency in the sampled traces is minor (9-24ms), high memory pressure is a critical issue that can lead to performance degradation (e.g., increased garbage collection, swapping) or instability (e.g., Out-Of-Memory errors), potentially contributing to overall system health issues or future faults."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 19,
+      "inject_time": "2022-08-22 07:01:25",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 20,
+      "inject_time": "2022-08-22 07:10:43",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 21,
+      "inject_time": "2022-08-22 07:17:55",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 22,
+      "inject_time": "2022-08-22 07:26:48",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 23,
+      "inject_time": "2022-08-22 07:44:20",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "return",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 24,
+      "inject_time": "2022-08-22 07:53:33",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "exception",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 25,
+      "inject_time": "2022-08-23 12:01:25",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 26,
+      "inject_time": "2022-08-23 12:10:21",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "return",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 27,
+      "inject_time": "2022-08-23 12:18:23",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 28,
+      "inject_time": "2022-08-23 12:27:23",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "exception",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 29,
+      "inject_time": "2022-08-23 12:35:57",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 30,
+      "inject_time": "2022-08-23 12:45:08",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 31,
+      "inject_time": "2022-08-23 12:53:52",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 34,
+      "inject_time": "2022-08-23 13:19:06",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 35,
+      "inject_time": "2022-08-23 13:27:51",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 36,
+      "inject_time": "2022-08-23 13:37:08",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 37,
+      "inject_time": "2022-08-23 13:45:53",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 38,
+      "inject_time": "2022-08-23 13:54:37",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 39,
+      "inject_time": "2022-08-23 14:03:48",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 40,
+      "inject_time": "2022-08-23 14:12:52",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 41,
+      "inject_time": "2022-08-23 14:21:54",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 42,
+      "inject_time": "2022-08-23 14:30:10",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 43,
+      "inject_time": "2022-08-23 14:47:40",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "return",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 44,
+      "inject_time": "2022-08-23 14:55:55",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 45,
+      "inject_time": "2022-08-23 15:04:28",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "exception",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 46,
+      "inject_time": "2022-08-23 15:12:49",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 47,
+      "inject_time": "2022-08-23 15:21:41",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 48,
+      "inject_time": "2022-08-23 15:29:49",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 49,
+      "inject_time": "2022-08-23 15:38:52",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 50,
+      "inject_time": "2022-08-23 15:47:43",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 51,
+      "inject_time": "2022-08-23 15:56:24",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 52,
+      "inject_time": "2022-08-23 16:05:02",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "network_delay",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 53,
+      "inject_time": "2022-08-23 16:13:38",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "return",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 54,
+      "inject_time": "2022-08-23 16:22:53",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "exception",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 55,
+      "inject_time": "2022-08-23 16:31:35",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "cpu_contention",
+      "llm_results": [],
+      "rank": -1
+    },
+    {
+      "fault_number": 56,
+      "inject_time": "2022-08-23 16:40:57",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "cpu_consumed",
+      "llm_results": [],
+      "rank": -1
+    }
+  ]
+}

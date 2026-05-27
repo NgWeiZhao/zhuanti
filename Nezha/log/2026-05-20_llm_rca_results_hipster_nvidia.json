@@ -1,0 +1,1423 @@
+{
+  "config": {
+    "namespace": "hipster",
+    "provider": "nvidia",
+    "model": null,
+    "compare_normal": true,
+    "timestamp": "2026-05-20 20:05:03.202711"
+  },
+  "accuracy": {
+    "top1": 73.21428571428571,
+    "top3": 85.71428571428571,
+    "top1_count": 41,
+    "top3_count": 48,
+    "total": 56,
+    "not_found": 8
+  },
+  "detailed_results": [
+    {
+      "fault_number": 1,
+      "inject_time": "2022-08-22 03:53:54",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 26.71% to 81.35%, indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 186.51ms, suggesting network latency issues"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 81.28%, similar to the normal baseline, but CPU usage decreased, potentially indicating memory pressure"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 2,
+      "inject_time": "2022-08-22 04:02:07",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 52.41%, indicating potential CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 1.17ms, which may cause delays in product catalog queries"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 81.31%, similar to the normal baseline, but the MemoryUsageRate alarm was triggered, suggesting potential memory pressure"
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 3,
+      "inject_time": "2022-08-22 04:10:20",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 26.71% to 99.93%, indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.77% to 54.79%, suggesting CPU over-consumption"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 85.49ms, indicating potential network latency issues"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 4,
+      "inject_time": "2022-08-22 04:18:35",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.77% to 70.22% indicating high CPU consumption"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 1.15ms, although not drastic, it might contribute to the overall system slowdown"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 81.32% which could indicate memory pressure, although CPU usage decreased"
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 5,
+      "inject_time": "2022-08-22 04:27:03",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.67ms to 252.6ms, indicating a significant network delay issue."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.56% to 33.09%, although not as significant as the network delay in cartservice, still indicates potential CPU over-consumption."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 81.38%, similar to the normal baseline, but the MemoryUsageRate(%) alarm was triggered, suggesting potential memory pressure issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 6,
+      "inject_time": "2022-08-22 04:36:03",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 9.48% to 88.3% indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.77% to 70.22% indicating CPU over-consumption"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 1.09ms, although not drastic, it's still a notable change"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 7,
+      "inject_time": "2022-08-22 04:44:16",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 10.01% to 100.8% indicating CPU over-consumption"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 94.28ms to 136.99ms in paymentservice and from 7.85ms to 2.64ms in checkoutservice, but currencyservice's latency increased significantly in some traces"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained relatively stable, but some SQL query durations increased significantly, potentially indicating memory pressure or database issues"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 8,
+      "inject_time": "2022-08-22 04:52:55",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 7.85ms to 271.15ms, indicating a significant network delay issue"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.77% to 70.79%, suggesting CPU over-consumption"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.56% to 51.81%, indicating potential CPU resource contention"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 11,
+      "inject_time": "2022-08-22 05:18:09",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 101.34%, indicating high CPU resource contention."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 1.21ms, which may indicate network latency issues, but the change is relatively small compared to the CPU usage spike in currencyservice."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained relatively stable, but the adservice experienced a slight increase in memory usage from 81.08% to 81.35%, which may indicate memory pressure, but it's less significant compared to the CPU contention in currencyservice."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 12,
+      "inject_time": "2022-08-22 05:27:06",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "The Network P90 (ms) for currencyservice increased from 94.28ms in the normal baseline to 652.03ms in the fault period, indicating a significant network latency issue."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The CPU usage for productcatalogservice increased from 45.56% in the normal baseline to 18.34% in the fault period, but the duration of its operations (e.g., GetProduct, ListProducts) increased significantly, suggesting CPU over-consumption."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The MemoryUsageRate (%) for adservice remained high at 81.42% in the fault period, similar to the normal baseline (81.08%), but the increased duration of its operations (e.g., GetAds) may indicate memory pressure."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 13,
+      "inject_time": "2022-08-22 05:35:34",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "emailservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 0.28% to 84.5%, indicating a significant change in resource utilization."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.77% to 68.69%, suggesting a potential issue with CPU over-consumption."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 81.39%, similar to the normal baseline, but the MemoryUsageRate alarm was triggered, indicating potential memory pressure."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 14,
+      "inject_time": "2022-08-22 05:43:48",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 70.81%, indicating a significant change in CPU resource utilization."
+        },
+        {
+          "rank": 2,
+          "service": "emailservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.72ms to 869.85ms, suggesting a network latency issue."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained relatively stable, but the number of SQL queries and rows retrieved increased, potentially indicating memory pressure or inefficient database queries."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 15,
+      "inject_time": "2022-08-22 05:52:54",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "paymentservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 2.1ms to 586.64ms, indicating a significant network delay issue."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 58.09%, suggesting CPU resource contention."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.56% to 40.88%, which may indicate CPU over-consumption, although the change is less significant compared to other services."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 16,
+      "inject_time": "2022-08-22 06:01:18",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "paymentservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 0.2% to 82.15% in the fault period, indicating a significant increase in CPU consumption."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 53.86% in the fault period, and network latency increased from 94.28ms to 10.46ms, indicating potential CPU contention and network latency issues."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained relatively stable, but the number of SQL queries and rows retrieved increased significantly in the fault period, potentially indicating memory pressure or inefficient database queries."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 17,
+      "inject_time": "2022-08-22 06:35:39",
+      "inject_pod": "productcatalogservice-668d5f85fb-wckp8",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.56% to 87.74% indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 94.28ms to 6.47ms, although this decrease is observed, the overall system latency has increased, suggesting potential network issues elsewhere"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained relatively stable, but the MemoryUsageRate(%) exceeded threshold alarm was triggered, indicating potential memory pressure issues"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 18,
+      "inject_time": "2022-08-22 06:52:56",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 0.9ms to 502.66ms, indicating a significant network delay issue."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 58.29%, suggesting CPU resource contention."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 45.56% to 31.3%, which is still a notable change, but less severe than the issues in recommendationservice and currencyservice."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 19,
+      "inject_time": "2022-08-22 07:01:25",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 7.73% to 102.25%, indicating a significant increase in CPU consumption during the fault period."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.06ms to 84.16ms, suggesting potential network latency issues affecting the service's performance."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 60.9%, and memory usage remained relatively stable, indicating potential CPU resource contention."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 20,
+      "inject_time": "2022-08-22 07:10:43",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_contention",
+          "evidence": "The CPU usage of recommendationservice increased from 7.73% to 99.97%, indicating a significant increase in CPU resource contention."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "The Network P90 latency of productcatalogservice increased from 1.06ms to 84.64ms, suggesting potential network latency issues."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The Memory usage of adservice remained high at 81.39%, similar to the normal baseline, but the CPU usage decreased, which might indicate memory pressure or other resource contention issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 21,
+      "inject_time": "2022-08-22 07:17:55",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.74ms to 478.91ms, indicating a significant network delay issue"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage remained high at 45.71%, similar to the normal baseline, but the increased load may be contributing to the overall system fault"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage decreased from 10.85% to 11.3%, but the slight increase in CPU usage from 45.56% to 45.93% may indicate some resource contention or memory pressure"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 22,
+      "inject_time": "2022-08-22 07:26:48",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The CPU usage of shippingservice increased from 3.41% to 89.5%, indicating a significant increase in CPU consumption, likely due to inefficient algorithm or excessive load"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "The CPU usage of currencyservice increased from 45.77% to 58.32%, and the network latency increased from 94.28ms to 16.28ms, indicating potential CPU contention and network latency issues"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "The memory usage of productcatalogservice increased from 10.85% to 11.3%, and the number of SQL queries and rows retrieved increased, indicating potential memory pressure and inefficient database queries"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 23,
+      "inject_time": "2022-08-22 07:44:20",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 53.44% in the fault period, indicating potential CPU resource contention."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage increased from 81.08% to 95.86% in the fault period, indicating potential memory pressure."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency remained relatively stable, but the increase in CPU usage from 45.56% to 33.15% and the significant increase in the number of SQL queries in the fault period may indicate network latency issues."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 24,
+      "inject_time": "2022-08-22 07:53:33",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 45.77% to 69.02% in the fault period, indicating CPU resource contention."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage decreased from 10.85% to 11.3%, but the number of SQL queries and rows increased, potentially causing memory pressure."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "exception",
+          "evidence": "The adservice experienced a MemoryUsageRate(%) exceeded threshold alarm in both normal and fault periods, but the fault logs showed 'No context provided. Constructe random Ads start' and 'Received ad request (context_words=[])', indicating potential exceptions or incorrect return values."
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "fault_number": 25,
+      "inject_time": "2022-08-23 12:01:25",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 19.06% to 87.0% in the fault period, indicating a significant increase in CPU consumption."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 189.78ms in the fault period, suggesting potential network latency issues."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 52.57% in the fault period, and network P90 latency increased from 84.99ms to 190.47ms, indicating potential CPU contention and network latency issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 26,
+      "inject_time": "2022-08-23 12:10:21",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 57.09% indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage decreased from 11.51% to 10.45% but the number of SQL queries increased significantly, potentially causing memory pressure"
+        },
+        {
+          "rank": 3,
+          "service": "checkoutservice",
+          "fault_type": "exception",
+          "evidence": "Increased duration of PlaceOrder and ConvertCurrency operations, potentially indicating application exceptions or logic errors"
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 27,
+      "inject_time": "2022-08-23 12:18:23",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "frontend",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 19.06% to 86.89% indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 88.1ms indicating potential network latency issues"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.1% and MemoryUsageRate exceeded threshold indicating potential memory pressure"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 28,
+      "inject_time": "2022-08-23 12:27:23",
+      "inject_pod": "frontend-579b9bff58-t2dbm",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 49.18% and Network P90 latency increased from 84.99ms to 8.54ms, indicating potential CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage increased from 11.51% to 10.45%, but the number of SQL queries and rows retrieved increased significantly, potentially causing memory pressure"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.1%, and the number of ad requests increased, potentially causing memory pressure and increased latency in ad retrieval"
+        }
+      ],
+      "rank": -1
+    },
+    {
+      "fault_number": 29,
+      "inject_time": "2022-08-23 12:35:57",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.55ms to 223.03ms, indicating a significant network delay issue"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 32.65%, and the number of SQL queries and rows retrieved increased, suggesting CPU over-consumption"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.12%, similar to the normal baseline, but the increased duration of GetAds requests may indicate memory pressure"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 30,
+      "inject_time": "2022-08-23 12:45:08",
+      "inject_pod": "cartservice-579f59597d-wc2lz",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "cartservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 6.12% to 100.25%, indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 1.17ms, and the number of SQL queries and rows fetched increased significantly"
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage remained high at 46.92%, similar to the normal baseline, but the number of conversion requests and currency data queries increased"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 31,
+      "inject_time": "2022-08-23 12:53:52",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.83ms to 235.69ms, indicating a significant network delay issue"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 34.19% to 44.1%, suggesting CPU resource contention"
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage remained high at 43.74%, similar to the normal baseline of 46.2%, but the number of Convert calls increased significantly, potentially leading to CPU over-consumption"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 34,
+      "inject_time": "2022-08-23 13:19:06",
+      "inject_pod": "checkoutservice-578fcf4766-9csqn",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "checkoutservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 4.14% to 90.87%, indicating a significant spike in CPU consumption during the fault period."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 14.66ms, but the number of Convert calls increased significantly, suggesting potential network delays or increased load."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.13%, similar to the normal baseline, but the increased CPU usage in other services may have a cascading effect on adservice's memory usage."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 35,
+      "inject_time": "2022-08-23 13:27:51",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 85.01% indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 1.08ms, although not significantly high, combined with increased CPU usage from 34.19% to 7.36% suggests potential network latency issues"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.08% similar to the normal baseline of 87.1%, but CPU usage decreased from 4.32% to 1.33% which might indicate memory pressure or inefficient resource utilization"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 36,
+      "inject_time": "2022-08-23 13:37:08",
+      "inject_pod": "currencyservice-cf787dd48-vpjrd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 628.58ms, indicating a significant network delay issue."
+        },
+        {
+          "rank": 2,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.14%, similar to the normal baseline, but the MemoryUsageRate alarm was triggered, suggesting potential memory pressure."
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage decreased from 34.19% to 13.19%, but the number of SQL queries and rows processed increased, potentially indicating inefficient CPU utilization or resource contention."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 37,
+      "inject_time": "2022-08-23 13:45:53",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "emailservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 0.58% to 101.21%, indicating a significant increase in CPU consumption"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 9.4ms, but the number of Convert requests increased significantly, suggesting potential network latency issues"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.23%, similar to the normal baseline, but the number of GetAds requests increased, potentially leading to memory pressure"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 38,
+      "inject_time": "2022-08-23 13:54:37",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 46.2% to 70.22%, indicating high CPU consumption"
+        },
+        {
+          "rank": 2,
+          "service": "emailservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 2.9ms to 898.33ms, suggesting network latency issues"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.14%, similar to the normal baseline, but the service experienced a MemoryUsageRate(%) exceeded threshold alarm"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 39,
+      "inject_time": "2022-08-23 14:03:48",
+      "inject_pod": "emailservice-55fdc5b988-f6xth",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "emailservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 0.58% to 84.7%, indicating a significant change in CPU resource utilization"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 51.71%, suggesting increased CPU consumption"
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 10.77ms, although this decrease is unexpected, the absolute value is still relatively high and may indicate network latency issues"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 40,
+      "inject_time": "2022-08-23 14:12:52",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "paymentservice",
+          "fault_type": "network_delay",
+          "evidence": "The Network P90 (ms) for paymentservice increased from 5.43ms to 534.86ms, indicating a significant network latency issue."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The CPU usage for currencyservice remained high at 40.25%, similar to the normal baseline, but the network latency increased, which might be related to CPU over-consumption."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The Memory (%) usage for adservice remained high at 87.08%, similar to the normal baseline, which might indicate memory pressure, but the change is not as significant as the network latency issue in paymentservice."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 41,
+      "inject_time": "2022-08-23 14:21:54",
+      "inject_pod": "paymentservice-9cdb6588f-554sm",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "paymentservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 0.6% to 92.25% in the fault period, indicating a significant increase in CPU consumption."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 5.3ms is not a significant increase, but the number of Convert calls in the fault traces is higher than in the normal traces, which could indicate a network delay issue."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.11% in the fault period, which could indicate memory pressure, but the increase in CPU usage is not significant."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 42,
+      "inject_time": "2022-08-23 14:30:10",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 106.84ms, indicating a significant network delay issue."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 44.51%, and network latency increased, suggesting CPU resource contention."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.05%, and a MemoryUsageRate alarm was triggered, indicating potential memory pressure issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 43,
+      "inject_time": "2022-08-23 14:47:40",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 46.2% to 18.97% is not a significant increase, however the number of GetCurrencyData and Convert calls increased significantly in the fault period, indicating a potential CPU over-consumption issue."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "return",
+          "evidence": "The productcatalogservice experienced a significant decrease in CPU usage from 34.19% to 0.0%, and the number of GetProduct and ListProducts calls remained high, but the service started returning errors such as 'No product with ID <ID>', indicating a potential logic error or incorrect return value."
+        },
+        {
+          "rank": 3,
+          "service": "checkoutservice",
+          "fault_type": "exception",
+          "evidence": "The checkoutservice experienced errors such as 'Failed to prepare order: failed to get product #<ID>' and 'Failed to get product #<ID>', indicating a potential application exception or error, possibly caused by issues with the productcatalogservice."
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "fault_number": 44,
+      "inject_time": "2022-08-23 14:55:55",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 81.26%, indicating a significant increase in CPU consumption during the fault period."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 5.9ms, but the number of Convert calls increased significantly, suggesting potential network latency issues."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.11%, similar to the normal baseline, but the MemoryUsageRate alarm was triggered, indicating potential memory pressure issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 45,
+      "inject_time": "2022-08-23 15:04:28",
+      "inject_pod": "productcatalogservice-668d5f85fb-jhwx9",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "productcatalogservice",
+          "fault_type": "exception",
+          "evidence": "Failed to scan MySQL query result and query product error in fault logs, indicating a potential database query issue or application exception."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "return",
+          "evidence": "Multiple conversion requests and failures to convert product in fault logs, suggesting incorrect return values or logic errors in the currency conversion functionality."
+        },
+        {
+          "rank": 3,
+          "service": "checkoutservice",
+          "fault_type": "exception",
+          "evidence": "Failed to prepare order and get product in fault logs, indicating potential application exceptions or errors in the checkout process."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 46,
+      "inject_time": "2022-08-23 15:12:49",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 0.92ms to 512.61ms, indicating a significant network delay issue."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 42.32%, suggesting CPU over-consumption."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.13%, similar to the normal baseline, but the MemoryUsageRate alarm was triggered, indicating potential memory pressure."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 47,
+      "inject_time": "2022-08-23 15:21:41",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The CPU usage of recommendationservice increased from 5.5% to 85.95%, indicating a significant increase in CPU consumption."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "The Network P90 latency of productcatalogservice increased from 1.11ms to 92.45ms, suggesting network latency issues."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The Memory usage of adservice remained high at 87.11%, similar to the normal baseline, but the increased CPU usage of other services may have a cascading effect on adservice's memory usage."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 48,
+      "inject_time": "2022-08-23 15:29:49",
+      "inject_pod": "recommendationservice-6cfdd55578-gfj6q",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "recommendationservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "The CPU usage of recommendationservice increased from 5.5% to 81.23% during the fault period, indicating a significant increase in CPU consumption."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "The network latency (P90) of productcatalogservice increased from 1.11ms to 12.12ms during the fault period, suggesting potential network delay issues."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "The memory usage of adservice remained high at 87.13% during the fault period, similar to the normal baseline, but the CPU usage decreased, which might indicate memory pressure or other issues."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 49,
+      "inject_time": "2022-08-23 15:38:52",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 2.49ms to 494.76ms, indicating a significant network delay issue"
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 46.2% to 63.16%, suggesting CPU over-consumption"
+        },
+        {
+          "rank": 3,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 36.1%, which may indicate CPU over-consumption, although the increase is less significant compared to currencyservice"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 50,
+      "inject_time": "2022-08-23 15:47:43",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 3.3% to 100.78%, indicating severe CPU resource contention."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 1.25ms, and the number of SQL queries and rows fetched increased significantly, suggesting potential network latency issues."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 46.2% to 52.75%, and the number of conversion requests and currency data queries increased, indicating potential CPU over-consumption."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 51,
+      "inject_time": "2022-08-23 15:56:24",
+      "inject_pod": "shippingservice-7b598fc7d-lmggd",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "shippingservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 3.3% to 88.57% in the fault period, indicating a significant spike in CPU resource contention."
+        },
+        {
+          "rank": 2,
+          "service": "currencyservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 46.2% to 65.11% in the fault period, suggesting CPU over-consumption due to increased conversion requests."
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained high at 87.14% in the fault period, similar to the normal baseline, but the increased CPU usage in other services may have cascading effects on adservice's memory usage."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 52,
+      "inject_time": "2022-08-23 16:05:02",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "network_delay",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage increased from 87.1% to 87.09% and CPU usage decreased from 4.32% to 3.54%, indicating potential memory pressure issues."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 30.7%, which may indicate CPU over-consumption, but the decrease is not significant enough to be the primary cause."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 84.99ms to 6.58ms, which is actually a decrease, but CPU usage increased from 46.2% to 40.64%, indicating potential network latency issues, but the evidence is not strong enough to support this as the primary cause."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 53,
+      "inject_time": "2022-08-23 16:13:38",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "return",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 48.85% and network latency increased from 84.99ms to 11.52ms, indicating potential CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage remained relatively stable, but CPU usage increased from 34.19% to 46.67%, which may indicate memory pressure or inefficient memory usage"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage increased from 87.1% to 95.91%, which may indicate memory pressure or a memory leak, but CPU usage only increased slightly from 4.32% to 14.25%"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "fault_number": 54,
+      "inject_time": "2022-08-23 16:22:53",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "exception",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 59.28%, indicating high CPU resource contention"
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 34.19% to 30.08%, and network P90 latency decreased from 1.11ms to 1.07ms, but the number of SQL queries and rows retrieved increased significantly"
+        },
+        {
+          "rank": 3,
+          "service": "adservice",
+          "fault_type": "memory",
+          "evidence": "Memory usage increased from 87.1% to 95.44%, indicating potential memory pressure, and the 'Failed to retrieve ads' log message suggests a possible issue with ad retrieval"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "fault_number": 55,
+      "inject_time": "2022-08-23 16:31:35",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "cpu_contention",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "adservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 4.32% to 89.82%, indicating a significant increase in CPU consumption, likely due to inefficient ad retrieval logic or excessive database queries."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency increased from 1.11ms to 1.12ms, which may not seem significant, but the number of database queries and rows retrieved increased substantially, potentially causing network delays and contributing to the overall system slowdown."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 54.47%, which, although not as drastic as adservice, still indicates potential CPU contention, possibly due to increased conversion requests or inefficient currency data retrieval."
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "fault_number": 56,
+      "inject_time": "2022-08-23 16:40:57",
+      "inject_pod": "adservice-5f6585d649-fnmft",
+      "inject_type": "cpu_consumed",
+      "llm_results": [
+        {
+          "rank": 1,
+          "service": "adservice",
+          "fault_type": "cpu_consumed",
+          "evidence": "CPU usage increased from 4.32% to 89.47%, indicating a significant spike in CPU consumption during the fault period."
+        },
+        {
+          "rank": 2,
+          "service": "productcatalogservice",
+          "fault_type": "network_delay",
+          "evidence": "Network P90 latency remained relatively stable, but the number of SQL queries and rows fetched increased substantially, potentially causing delays in the service."
+        },
+        {
+          "rank": 3,
+          "service": "currencyservice",
+          "fault_type": "cpu_contention",
+          "evidence": "CPU usage increased from 46.2% to 35.94%, and the number of conversion requests and currency data queries rose, which may have led to CPU resource contention."
+        }
+      ],
+      "rank": 1
+    }
+  ]
+}

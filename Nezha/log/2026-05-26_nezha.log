@@ -1,0 +1,1317 @@
+[INFO]2026-05-26 12:25:37,137 data_collector.py:199: Collecting profiling data for 2022-08-22 03:51 (ns=hipster)
+[INFO]2026-05-26 12:26:40,574 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 12:26:40,574 data_collector.py:199: Collecting profiling data for 2022-08-23 17:00 (ns=hipster)
+[INFO]2026-05-26 12:27:39,167 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 12:27:39,167 data_collector.py:199: Collecting profiling data for 2022-08-22 03:55 (ns=hipster)
+[INFO]2026-05-26 12:28:23,939 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 12:28:23,969 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 12:39:24,289 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased from 1.06ms to 186.51ms (176x increase). Trace data shows GetProduct calls taking 100-200ms instead of 4-7ms. This service is heavily used by frontend, recommendationservice, and checkoutservice, making it a critical bottleneck."
+    },
+    {
+      "rank": 2,
+      "service": "frontend",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked from 26.71% to 81.35% (3x increase), triggering an alarm. The frontend is experiencing high CPU due to increased workload from waiting on slow downstream services and managing retries/timeout handling for delayed network calls."
+    },
+    {
+      "rank": 3,
+      "service": "recommendationservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased from 0.9ms to 187.78ms (209x increase). Traces show ListRecommendations taki
+[INFO]2026-05-26 12:39:24,289 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 12:39:24,289 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=network_delay, evidence=Network P90 latency increased from 1.06ms to 186.51ms (176x increase). Trace data shows GetProduct c
+[INFO]2026-05-26 12:39:24,289 evaluator.py:61:   LLM Rank 2: service=frontend, fault_type=cpu_contention, evidence=CPU usage spiked from 26.71% to 81.35% (3x increase), triggering an alarm. The frontend is experienc
+[INFO]2026-05-26 12:39:24,289 evaluator.py:66:   -> MATCH at rank 2
+[INFO]2026-05-26 12:39:28,297 data_collector.py:199: Collecting profiling data for 2022-08-22 04:04 (ns=hipster)
+[INFO]2026-05-26 12:40:09,074 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 12:40:09,075 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 12:45:58,809 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU increased from 45.77% to 52.41% (6.64% increase, highest among all services). Trace analysis shows extreme latency in Convert operations: normal baseline had Convert durations around 56-87ms, but fault period Trace 2 shows Convert taking 491774us (492ms) - a 5-8x increase. The currencyservice appears to be experiencing CPU resource contention causing slower response times."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "return",
+      "evidence": "Normal logs show 'Get Ads by Category' with context_words like [vintage], [cookware], [photography vintage], but fault logs show 'No context provided. Constructe random Ads' with context_words=[]. The service changed from returning category-specific ads to returning random ads, indicating a logic error or incorrect return value in the ad selection code."
+    },
+    {
+ 
+[INFO]2026-05-26 12:45:58,810 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 12:45:58,810 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=cpu_contention, evidence=CPU increased from 45.77% to 52.41% (6.64% increase, highest among all services). Trace analysis sho
+[INFO]2026-05-26 12:45:58,810 evaluator.py:61:   LLM Rank 2: service=adservice, fault_type=return, evidence=Normal logs show 'Get Ads by Category' with context_words like [vintage], [cookware], [photography v
+[INFO]2026-05-26 12:45:58,811 evaluator.py:61:   LLM Rank 3: service=productcatalogservice, fault_type=cpu_consumed, evidence=CPU dropped dramatically from 45.56% to 9.93% (35.63% decrease). This massive CPU reduction suggests
+[INFO]2026-05-26 12:45:58,811 evaluator.py:69:   -> NO MATCH found
+[INFO]2026-05-26 12:46:02,815 data_collector.py:199: Collecting profiling data for 2022-08-22 04:12 (ns=hipster)
+[INFO]2026-05-26 12:46:55,105 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 12:46:55,107 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 13:02:01,003 llm_ranker.py:175: LLM call failed on attempt 1: Connection error.
+[INFO]2026-05-26 13:02:06,006 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[INFO]2026-05-26 13:02:49,004 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "network",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased dramatically across nearly all services: adservice (1.61ms->84.27ms), cartservice (1.67ms->89.02ms), checkoutservice (7.85ms->56.19ms), productcatalogservice (1.06ms->85.49ms), recommendationservice (0.9ms->84.87ms), and shippingservice (1.74ms->82.35ms). This widespread latency spike indicates a network infrastructure issue rather than a single service problem."
+    },
+    {
+      "rank": 2,
+      "service": "frontend",
+      "fault_type": "cpu_contention",
+      "evidence": "Frontend CPU usage spiked from 26.71% to 99.93%, triggering an alarm. This is a secondary effect of the network delays - as downstream service calls take 80-90x longer to respond, the frontend accumulates pending requests and CPU becomes saturated handling waiting/queued work rather than actual computation."
+    },
+    {
+      "rank": 3,
+      "service": "
+[INFO]2026-05-26 13:02:49,005 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 13:02:49,005 evaluator.py:61:   LLM Rank 1: service=network, fault_type=network_delay, evidence=Network P90 latency increased dramatically across nearly all services: adservice (1.61ms->84.27ms), 
+[INFO]2026-05-26 13:02:49,005 evaluator.py:61:   LLM Rank 2: service=frontend, fault_type=cpu_contention, evidence=Frontend CPU usage spiked from 26.71% to 99.93%, triggering an alarm. This is a secondary effect of 
+[INFO]2026-05-26 13:02:49,005 evaluator.py:66:   -> MATCH at rank 2
+[INFO]2026-05-26 13:02:53,010 data_collector.py:199: Collecting profiling data for 2022-08-22 04:20 (ns=hipster)
+[INFO]2026-05-26 13:03:59,442 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 13:03:59,442 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 13:19:04,623 llm_ranker.py:175: LLM call failed on attempt 1: Connection error.
+[INFO]2026-05-26 13:19:09,627 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[ERROR]2026-05-26 13:34:16,106 llm_ranker.py:175: LLM call failed on attempt 2: Connection error.
+[INFO]2026-05-26 13:34:26,112 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 3/5
+[ERROR]2026-05-26 13:49:33,174 llm_ranker.py:175: LLM call failed on attempt 3: Connection error.
+[INFO]2026-05-26 13:49:48,180 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 4/5
+[INFO]2026-05-26 13:51:09,262 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "SQL query durations increased dramatically: sql.conn.query went from ~500-800£gs (normal) to 1655-3979£gs, with some reaching 11784£gs. GetProduct operations increased from ~2-4ms to 9-20ms, with outliers reaching 468921£gs. ParseCatalog/ReadCatalog increased from 3-6ms to 11-17ms. This pattern indicates database resource contention causing slow queries."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage increased significantly from 45.77% to 70.22% (+24.45 percentage points). However, network P90 latency improved from 94.28ms to 5.75ms, and trace durations for CurrencyService calls did not show proportional increases, suggesting this may be a secondary effect rather than the primary cause."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+      "fault_type
+[INFO]2026-05-26 13:51:09,289 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 13:51:09,289 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=cpu_contention, evidence=SQL query durations increased dramatically: sql.conn.query went from ~500-800£gs (normal) to 1655-397
+[INFO]2026-05-26 13:51:09,289 evaluator.py:61:   LLM Rank 2: service=currencyservice, fault_type=cpu_consumed, evidence=CPU usage increased significantly from 45.77% to 70.22% (+24.45 percentage points). However, network
+[INFO]2026-05-26 13:51:09,292 evaluator.py:61:   LLM Rank 3: service=adservice, fault_type=memory, evidence=Memory usage alarm present in both normal (81.08%) and fault (81.32%) periods. However, this appears
+[INFO]2026-05-26 13:51:09,292 evaluator.py:69:   -> NO MATCH found
+[INFO]2026-05-26 13:51:13,295 data_collector.py:199: Collecting profiling data for 2022-08-22 04:29 (ns=hipster)
+[INFO]2026-05-26 13:52:14,583 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 13:52:14,586 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 13:52:49,933 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "cartservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 1.67ms (normal) to 252.6ms (fault) - a 150x increase. This is the only service with a new alarm (NetworkP90 exceeded threshold). Trace data confirms CartService/GetCart calls increased from ~3-10ms to ~240-250ms, and CartService/EmptyCart calls went from ~1ms to ~257ms. This network latency cascades to checkoutservice, causing PlaceOrder to take 1.1 seconds instead of normal ~300-500ms."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage consistently high at 81.08% (normal) and 81.38% (fault), triggering MemoryUsageRate alarm in both periods. However, this appears to be a pre-existing condition rather than the primary fault cause, as memory usage barely changed and CPU actually decreased."
+    },
+    {
+      "rank": 3,
+      "service": "productc
+[INFO]2026-05-26 13:52:49,933 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 13:52:49,933 evaluator.py:61:   LLM Rank 1: service=cartservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 1.67ms (normal) to 252.6ms (fault) - a 150x increase. This i
+[INFO]2026-05-26 13:52:49,933 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 13:52:53,936 data_collector.py:199: Collecting profiling data for 2022-08-22 04:38 (ns=hipster)
+[INFO]2026-05-26 13:53:59,993 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 13:53:59,993 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:04:42,218 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "cartservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 9.48% to 88.3% (9x increase), and network P90 latency increased from 1.67ms to 4.69ms. Trace data shows GetCart operations degraded severely: normal traces show ~1-2ms, but fault traces show 21-310ms with multiple traces exceeding 100ms (e.g., Trace 7: 310363us, Trace 3: 124868us). This indicates the cartservice is under severe CPU resource contention, causing request processing delays."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage increased from 45.77% to 70.22% (54% increase). While not as severe as cartservice, this service also shows elevated CPU consumption. The GetSupportedCurrencies calls in traces show increased latency (e.g., Trace 1: 42494us vs normal ~250us). This could be a secondary effect of downstream pressure or a rela
+[INFO]2026-05-26 14:04:42,218 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:04:42,218 evaluator.py:61:   LLM Rank 1: service=cartservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 9.48% to 88.3% (9x increase), and network P90 latency increased f
+[INFO]2026-05-26 14:04:42,218 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:04:46,225 data_collector.py:199: Collecting profiling data for 2022-08-22 04:46 (ns=hipster)
+[INFO]2026-05-26 14:05:50,207 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:05:50,207 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:06:16,847 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "checkoutservice",
+      "fault_type": "cpu_contention",
+      "evidence": "checkoutservice CPU spiked from 10.01% (normal) to 100.8% (fault), a 10x increase, triggering CpuUsageRate alarm. This high CPU consumption directly impacts the service's ability to process checkout requests efficiently."
+    },
+    {
+      "rank": 2,
+      "service": "shippingservice",
+      "fault_type": "network_delay",
+      "evidence": "shippingservice network P90 latency increased dramatically from 1.74ms (normal) to 96.01ms (fault), a 55x increase. This network delay likely cascades from the checkoutservice CPU contention affecting downstream service communication."
+    },
+    {
+      "rank": 3,
+      "service": "emailservice",
+      "fault_type": "network_delay",
+      "evidence": "emailservice network P90 latency increased from 1.72ms (normal) to 136.03ms (fault), a 79x increase. Similarly, paymentservice network P90 jumped from 2.1ms to 13
+[INFO]2026-05-26 14:06:16,847 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:06:16,847 evaluator.py:61:   LLM Rank 1: service=checkoutservice, fault_type=cpu_contention, evidence=checkoutservice CPU spiked from 10.01% (normal) to 100.8% (fault), a 10x increase, triggering CpuUsa
+[INFO]2026-05-26 14:06:16,847 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:06:20,849 data_collector.py:199: Collecting profiling data for 2022-08-22 04:54 (ns=hipster)
+[INFO]2026-05-26 14:07:28,649 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:07:28,681 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:08:19,913 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage increased significantly from 45.77% to 70.79% (25 percentage point increase). Trace analysis shows CurrencyService/Convert calls in checkoutservice increased from ~50-90ms to 48-97 seconds (1000x increase). The high CPU consumption in currencyservice is causing slow processing of currency conversion requests, which cascades to checkoutservice and frontend."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 7.85ms to 271.15ms (34x increase). This is a downstream effect of currencyservice being slow - checkoutservice spends excessive time waiting for currency conversions. Trace shows PlaceOrder duration increased from ~310ms to 573ms, with ConvertCurrency calls taking 48-97 seconds instead of milliseconds."
+    },
+    {
+      "rank":
+[INFO]2026-05-26 14:08:19,913 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:08:19,913 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=cpu_consumed, evidence=CPU usage increased significantly from 45.77% to 70.79% (25 percentage point increase). Trace analys
+[INFO]2026-05-26 14:08:19,914 evaluator.py:61:   LLM Rank 2: service=checkoutservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 7.85ms to 271.15ms (34x increase). This is a downstream effe
+[INFO]2026-05-26 14:08:19,914 evaluator.py:66:   -> MATCH at rank 2
+[INFO]2026-05-26 14:08:23,914 data_collector.py:199: Collecting profiling data for 2022-08-22 05:03 (ns=hipster)
+[INFO]2026-05-26 14:08:38,499 data_collector.py:199: Collecting profiling data for 2022-08-22 05:11 (ns=hipster)
+[INFO]2026-05-26 14:08:52,332 data_collector.py:199: Collecting profiling data for 2022-08-22 05:20 (ns=hipster)
+[INFO]2026-05-26 14:09:07,870 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:09:07,870 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:15:12,148 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage spiked from 45.77% to 101.34% (exceeding threshold), and network P90 latency increased dramatically from 94.28ms to 1801.85ms (19x increase). Trace data shows frontend calls to CurrencyService/GetSupportedCurrencies increased from ~70ms to ~2.59 seconds, and CurrencyService/Convert calls increased from ~56ms to ~3.49 seconds. The high CPU consumption is causing severe processing delays in the currency service, which cascades to all dependent services."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+      "evidence": "While the primary fault is CPU consumption, the network P90 latency increased from 94.28ms to 1801.85ms, indicating significant network delays. This could be a secondary effect of the CPU overload causing slow responses, or the CPU spike could be a symptom of processing del
+[INFO]2026-05-26 14:15:12,148 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:15:12,148 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=cpu_consumed, evidence=CPU usage spiked from 45.77% to 101.34% (exceeding threshold), and network P90 latency increased dra
+[INFO]2026-05-26 14:15:12,148 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:15:16,158 data_collector.py:199: Collecting profiling data for 2022-08-22 05:29 (ns=hipster)
+[INFO]2026-05-26 14:15:55,192 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:15:55,194 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:21:36,451 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 94.28ms to 652.03ms (7x increase). Trace data shows frontend calls to CurrencyService/GetSupportedCurrencies increased from ~70-160ms to ~586-599ms, and CurrencyService/Convert increased from ~56-187ms to ~589-603ms. The alarm explicitly triggered for currencyservice NetworkP90(ms) exceeded threshold. CPU and memory remained stable, confirming this is a network latency issue rather than resource contention."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage increased from 30.2% to 40.96% (10.76 percentage points increase). This is likely a secondary effect - as currencyservice responses slow down, checkoutservice holds more state in memory while waiting for currency conversions to complete during checkout operations."
+    },
+    {
+   
+[INFO]2026-05-26 14:21:36,451 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:21:36,451 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 94.28ms to 652.03ms (7x increase). Trace data shows frontend
+[INFO]2026-05-26 14:21:36,451 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:21:40,455 data_collector.py:199: Collecting profiling data for 2022-08-22 05:37 (ns=hipster)
+[INFO]2026-05-26 14:22:45,479 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:22:45,483 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:23:42,047 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "emailservice",
+      "fault_type": "cpu_contention",
+      "evidence": "emailservice CPU usage spiked dramatically from 0.28% to 84.5% (300x increase), triggering CpuUsageRate alarm. This is the most significant metric change in the fault period. Trace data shows EmailService/SendOrderConfirmation taking 150811us in Trace 4, indicating processing delays due to CPU resource contention."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "checkoutservice memory usage increased from 30.2% to 40.96% (35% increase). Trace 4 shows PlaceOrder taking 334811us with PrepOrderItems consuming 138733us, suggesting memory pressure affecting order processing. The checkoutservice also depends on emailservice which is experiencing CPU issues, potentially causing cascading effects."
+    },
+    {
+      "rank": 3,
+      "service": "currencyservice",
+      "fault_type": "cpu_consum
+[INFO]2026-05-26 14:23:42,047 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:23:42,047 evaluator.py:61:   LLM Rank 1: service=emailservice, fault_type=cpu_contention, evidence=emailservice CPU usage spiked dramatically from 0.28% to 84.5% (300x increase), triggering CpuUsageR
+[INFO]2026-05-26 14:23:42,047 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:23:46,049 data_collector.py:199: Collecting profiling data for 2022-08-22 05:45 (ns=hipster)
+[INFO]2026-05-26 14:24:50,461 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:24:50,461 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:25:48,787 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "emailservice",
+      "fault_type": "network_delay",
+      "evidence": "emailservice Network P90 increased dramatically from 1.72ms (normal) to 869.85ms (fault) - a 505x increase. This is the most significant metric change across all services. The alarm explicitly flagged 'NetworkP90(ms) exceeded threshold' for emailservice. No emailservice calls appear in the provided traces, but the massive network latency spike indicates network connectivity issues affecting this service's communication."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "currencyservice CPU usage increased from 45.77% (normal) to 70.81% (fault) - a 55% increase. This is the second largest metric change. The trace data shows many more CurrencyService/Convert calls in fault period (11 calls in Trace 1) compared to normal, suggesting increased load. However, network P90 for currencyser
+[INFO]2026-05-26 14:25:48,789 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:25:48,789 evaluator.py:61:   LLM Rank 1: service=emailservice, fault_type=network_delay, evidence=emailservice Network P90 increased dramatically from 1.72ms (normal) to 869.85ms (fault) - a 505x in
+[INFO]2026-05-26 14:25:48,789 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:25:52,791 data_collector.py:199: Collecting profiling data for 2022-08-22 05:54 (ns=hipster)
+[INFO]2026-05-26 14:26:58,879 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:26:58,880 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:37:37,553 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "paymentservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 2.1ms (normal) to 586.64ms (fault) - a 279x increase. This is the most significant metric change across all services and triggered an alarm. The paymentservice handles payment processing which is latency-sensitive, and the extreme network delay would cause checkout failures or timeouts."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Multiple trace spans show significant latency increases: GetProduct calls went from 2-4ms to 5-40ms, sql.conn.query increased from ~500us to 1-3ms, and ParseCatalog/ReadCatalog doubled from ~3-6ms to 8-37ms. This indicates network or database contention affecting product catalog queries."
+    },
+    {
+      "rank": 3,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evide
+[INFO]2026-05-26 14:37:37,553 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:37:37,553 evaluator.py:61:   LLM Rank 1: service=paymentservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 2.1ms (normal) to 586.64ms (fault) - a 279x increase. This i
+[INFO]2026-05-26 14:37:37,553 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:37:41,555 data_collector.py:199: Collecting profiling data for 2022-08-22 06:03 (ns=hipster)
+[INFO]2026-05-26 14:38:47,439 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:38:47,442 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:39:43,256 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "paymentservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage spiked dramatically from 0.2% (normal) to 82.15% (fault), a 410x increase. Network P90 latency also increased from 2.1ms to 29.48ms. The alarm explicitly triggered for CpuUsageRate(%) exceeded threshold. Trace data shows PaymentService/Charge taking 38875us in the fault period vs 357us in normal checkout traces, indicating the service is CPU-bound and processing slowly."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage increased from 30.2% (normal) to 41.26% (fault), a significant 11% absolute increase. This is the second largest memory change and checkoutservice directly depends on paymentservice, so it may be affected by the downstream CPU issue or experiencing its own memory pressure during checkout operations."
+    },
+    {
+      "rank": 3,
+      "service": "cu
+[INFO]2026-05-26 14:39:43,256 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:39:43,256 evaluator.py:61:   LLM Rank 1: service=paymentservice, fault_type=cpu_consumed, evidence=CPU usage spiked dramatically from 0.2% (normal) to 82.15% (fault), a 410x increase. Network P90 lat
+[INFO]2026-05-26 14:39:43,256 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:39:47,258 data_collector.py:199: Collecting profiling data for 2022-08-22 06:37 (ns=hipster)
+[INFO]2026-05-26 14:40:48,055 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:40:48,055 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:41:39,630 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage nearly doubled from 45.56% to 87.74% (exceeded threshold alarm triggered). Trace analysis shows massive latency increases: ListProducts operations jumped from 3-6ms to 207-405ms (up to 100x), GetProduct calls increased from 2-4ms to 78-96ms (up to 25x), and SQL query times doubled. All downstream services calling productcatalogservice (frontend, recommendationservice) show proportional latency increases, confirming CPU resource contention as the bottleneck."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage alarm persisted (81.08% to 81.4%), though the increase is marginal. Ad retrieval times show slight increase (GetAds from ~4-12ms to ~6-16ms). This appears to be a pre-existing condition rather than the primary fault driver."
+    },
+    {
+      "rank": 3,
+     
+[INFO]2026-05-26 14:41:39,630 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:41:39,630 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=cpu_contention, evidence=CPU usage nearly doubled from 45.56% to 87.74% (exceeded threshold alarm triggered). Trace analysis 
+[INFO]2026-05-26 14:41:39,630 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:41:43,635 data_collector.py:199: Collecting profiling data for 2022-08-22 06:54 (ns=hipster)
+[INFO]2026-05-26 14:42:41,427 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:42:41,429 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:43:22,516 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "recommendationservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 0.9ms (normal) to 502.66ms (fault) - a 558x increase. This is the most significant change across all services. Trace data confirms this: ListRecommendations calls from frontend show durations of 510106us, 516249us, 498842us, 499417us, and 502145us in fault period vs ~6-10ms in normal traces. The alarm explicitly flags NetworkP90(ms) exceeded threshold for recommendationservice."
+    },
+    {
+      "rank": 2,
+      "service": "paymentservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased from 2.1ms (normal) to 56.97ms (fault) - a 27x increase. While not as severe as recommendationservice, this is still a significant network latency degradation. The paymentservice traces show normal operation but the elevated network latency could indicate a broader network issue affecting m
+[INFO]2026-05-26 14:43:22,516 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:43:22,516 evaluator.py:61:   LLM Rank 1: service=recommendationservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 0.9ms (normal) to 502.66ms (fault) - a 558x increase. This i
+[INFO]2026-05-26 14:43:22,516 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:43:26,521 data_collector.py:199: Collecting profiling data for 2022-08-22 07:03 (ns=hipster)
+[INFO]2026-05-26 14:44:20,342 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:44:20,342 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:44:55,560 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "recommendationservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 7.73% to 102.25% (exceeding 100% capacity), triggering an alarm. Trace durations for ListRecommendations increased from ~6-10ms to 200ms-2.1 seconds (100-200x increase), indicating severe CPU saturation. The service became a bottleneck causing cascading latency to frontend requests."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased 79x from 1.06ms to 84.16ms. SQL query durations also increased significantly (e.g., sql.conn.query from ~500us to 24357us). This service is called heavily by recommendationservice, so its degraded network performance compounds the overall latency issue."
+    },
+    {
+      "rank": 3,
+      "service": "emailservice",
+      "fault_type": "network_delay",
+      "evidence": "Net
+[INFO]2026-05-26 14:44:55,560 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:44:55,560 evaluator.py:61:   LLM Rank 1: service=recommendationservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 7.73% to 102.25% (exceeding 100% capacity), triggering an alarm. 
+[INFO]2026-05-26 14:44:55,560 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:44:59,564 data_collector.py:199: Collecting profiling data for 2022-08-22 07:12 (ns=hipster)
+[INFO]2026-05-26 14:45:35,483 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:45:35,486 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:46:08,424 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "recommendationservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked from 7.73% to 99.97% (12.9x increase), triggering CpuUsageRate alarm. Fault logs explicitly show 'Inject cpu successfully' messages. Trace analysis shows RecommendationService/ListRecommendations latency increased from ~9ms to ~2992ms (332x increase), causing frontend request duration to increase from ~258ms to ~3125ms (12x increase). The CPU saturation in recommendationservice is the primary bottleneck."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased dramatically from 1.06ms to 84.64ms (80x increase). This is a downstream effect of recommendationservice being CPU-saturated - productcatalogservice calls from recommendationservice experienced significant queuing delays. SQL query durations also increased (e.g., sql.con
+[INFO]2026-05-26 14:46:08,427 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:46:08,427 evaluator.py:61:   LLM Rank 1: service=recommendationservice, fault_type=cpu_contention, evidence=CPU usage spiked from 7.73% to 99.97% (12.9x increase), triggering CpuUsageRate alarm. Fault logs ex
+[INFO]2026-05-26 14:46:08,427 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:46:12,429 data_collector.py:199: Collecting profiling data for 2022-08-22 07:19 (ns=hipster)
+[INFO]2026-05-26 14:47:13,662 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:47:13,662 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:47:43,556 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "shippingservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 1.74ms (normal) to 478.91ms (fault) - a 275x increase. This is the most significant change across all services. Traces show ShippingService/GetQuote calls increased from ~3ms to ~470-480ms in fault period. CPU and memory remained stable, ruling out resource contention."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage increased from 30.2% to 41.67% (~38% increase). This could be a secondary effect of the shipping service delay causing longer-lived checkout sessions or buffering. CPU dropped from 10.01% to 3.75%, possibly due to blocked/waiting threads."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage remained high at 81.41% (vs 81.08% normal), continuing to exc
+[INFO]2026-05-26 14:47:43,556 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:47:43,556 evaluator.py:61:   LLM Rank 1: service=shippingservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 1.74ms (normal) to 478.91ms (fault) - a 275x increase. This 
+[INFO]2026-05-26 14:47:43,556 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:47:47,560 data_collector.py:199: Collecting profiling data for 2022-08-22 07:28 (ns=hipster)
+[INFO]2026-05-26 14:48:48,632 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:48:48,632 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:49:44,173 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "shippingservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 3.41% to 89.5% (26x increase), triggering an alarm. Trace analysis shows CreateQuoteFromCount latency increased from ~300us to 100005us (333x increase) and QuoteByCountFloat from ~55us to 99475us (1800x increase), indicating severe CPU resource contention in the shipping calculation logic."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage increased from 45.77% to 58.32% (27% increase). Network P90 dropped significantly from 94.28ms to 16.28ms, which is unusual and may indicate the service is consuming more CPU cycles, processing requests faster but at higher resource cost. Some traces show GetCurrencyData taking 91912us vs normal ~800us."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+      "fault_type": "memory",
+      "
+[INFO]2026-05-26 14:49:44,173 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:49:44,173 evaluator.py:61:   LLM Rank 1: service=shippingservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 3.41% to 89.5% (26x increase), triggering an alarm. Trace analysi
+[INFO]2026-05-26 14:49:44,173 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:49:48,176 data_collector.py:199: Collecting profiling data for 2022-08-22 07:46 (ns=hipster)
+[INFO]2026-05-26 14:50:52,619 data_collector.py:220: Collected: 10 services, 1 alarms, 7 traces, 10 log groups
+[INFO]2026-05-26 14:50:52,622 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 14:52:32,705 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage increased significantly from 81.08% to 95.86% (approaching capacity), while CPU nearly doubled from 5.87% to 10.28%. Trace analysis shows GetAds duration increased from ~10-12ms to 22-31ms, and internal getAdsByCategory operations increased from 4-5ms to 13-20ms. SQL SELECT queries also slowed from ~550us to 1700-2000us. The memory alarm is triggered in both periods but worsened significantly."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage increased from 45.77% to 53.44%. While network P90 improved from 94.28ms to 10.96ms, trace analysis reveals extreme latency spikes in CurrencyService/Convert operations - some calls increased from normal 5-9ms to 410ms (48x increase). GetCurrencyData operations also showed occasional spikes to 79ms vs normal ~1ms. This suggests CPU
+[INFO]2026-05-26 14:52:32,707 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 14:52:32,707 evaluator.py:61:   LLM Rank 1: service=adservice, fault_type=memory, evidence=Memory usage increased significantly from 81.08% to 95.86% (approaching capacity), while CPU nearly 
+[INFO]2026-05-26 14:52:32,707 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 14:52:36,709 data_collector.py:199: Collecting profiling data for 2022-08-22 07:55 (ns=hipster)
+[INFO]2026-05-26 14:53:36,407 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 14:53:36,407 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 15:24:12,467 llm_ranker.py:175: LLM call failed on attempt 1: Connection error.
+[INFO]2026-05-26 17:16:54,706 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[ERROR]2026-05-26 17:16:56,689 llm_ranker.py:175: LLM call failed on attempt 2: Connection error.
+[INFO]2026-05-26 19:55:47,716 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 3/5
+[ERROR]2026-05-26 20:00:10,291 llm_ranker.py:175: LLM call failed on attempt 3: <html>
+<head><title>502 Bad Gateway</title></head>
+<body>
+<center><h1>502 Bad Gateway</h1></center>
+</body>
+</html>
+[INFO]2026-05-26 20:00:25,296 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 4/5
+[ERROR]2026-05-26 20:15:33,719 llm_ranker.py:175: LLM call failed on attempt 4: Error code: 504
+[INFO]2026-05-26 20:15:53,721 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 5/5
+[INFO]2026-05-26 20:17:10,568 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage increased significantly from 45.77% to 69.02% (23.25 percentage point increase). This is the largest CPU increase among all services. The network P90 latency decreased from 94.28ms to 5.06ms, suggesting the service may be CPU-bound and processing requests more slowly, causing requests to queue and inflate latency metrics."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "SQL query durations increased dramatically - sql.conn.query reached 75293us in fault period vs ~500-600us in normal baseline. CPU increased from 45.56% to 48.1%. Trace 8 shows GetProduct operations taking 91546us and 85734us, indicating severe performance degradation in database operations, likely due to CPU resource contention."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+     
+[INFO]2026-05-26 20:17:10,568 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 20:17:10,568 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=cpu_contention, evidence=CPU usage increased significantly from 45.77% to 69.02% (23.25 percentage point increase). This is t
+[INFO]2026-05-26 20:17:10,568 evaluator.py:61:   LLM Rank 2: service=productcatalogservice, fault_type=cpu_contention, evidence=SQL query durations increased dramatically - sql.conn.query reached 75293us in fault period vs ~500-
+[INFO]2026-05-26 20:17:10,568 evaluator.py:61:   LLM Rank 3: service=adservice, fault_type=memory, evidence=Memory usage increased from 81.08% to 86.55%, continuing to exceed threshold. Frontend logs show 'Fa
+[INFO]2026-05-26 20:17:10,571 evaluator.py:66:   -> MATCH at rank 3
+[INFO]2026-05-26 20:17:14,602 data_collector.py:199: Collecting profiling data for 2022-08-23 12:03 (ns=hipster)
+[INFO]2026-05-26 20:17:56,800 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 20:17:56,800 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 20:26:47,525 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "network",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased dramatically across nearly all services: productcatalogservice (1.11ms¡÷189.78ms, 171x), recommendationservice (0.92ms¡÷190.83ms, 207x), adservice (1.81ms¡÷187.51ms, 104x), cartservice (1.55ms¡÷97.51ms, 63x), checkoutservice (1.83ms¡÷163.02ms, 89x), shippingservice (2.49ms¡÷187.49ms, 75x). Trace durations increased from microseconds to 100-200+ milliseconds, indicating widespread network communication degradation."
+    },
+    {
+      "rank": 2,
+      "service": "frontend",
+      "fault_type": "cpu_contention",
+      "evidence": "Frontend CPU usage spiked from 19.06% (normal) to 87.0% (fault), a 4.5x increase and the highest CPU among all services during fault period. This is likely a secondary effect of network delays causing request queuing and increased processing overhead."
+    },
+    {
+      "rank": 3,
+      "service": "checkoutse
+[INFO]2026-05-26 20:26:47,525 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 20:26:47,529 evaluator.py:61:   LLM Rank 1: service=network, fault_type=network_delay, evidence=Network P90 latency increased dramatically across nearly all services: productcatalogservice (1.11ms
+[INFO]2026-05-26 20:26:47,529 evaluator.py:61:   LLM Rank 2: service=frontend, fault_type=cpu_contention, evidence=Frontend CPU usage spiked from 19.06% (normal) to 87.0% (fault), a 4.5x increase and the highest CPU
+[INFO]2026-05-26 20:26:47,529 evaluator.py:66:   -> MATCH at rank 2
+[INFO]2026-05-26 20:26:51,530 data_collector.py:199: Collecting profiling data for 2022-08-23 12:12 (ns=hipster)
+[INFO]2026-05-26 20:27:19,659 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 20:27:19,659 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 20:42:27,924 llm_ranker.py:175: LLM call failed on attempt 1: Error code: 504
+[INFO]2026-05-26 20:42:32,926 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[INFO]2026-05-26 20:53:21,555 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "checkoutservice memory increased dramatically from 18.55% to 42.77% (24.22 percentage point increase). Trace analysis shows checkoutservice operations dominate fault period - PlaceOrder took 231198us with PrepOrderItems consuming 124316us and multiple ConvertCurrency calls totaling over 90ms, indicating memory pressure affecting processing efficiency."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "currencyservice CPU increased from 46.2% to 57.09% (10.89 percentage point increase). While still high in normal period, the additional CPU load during fault period may indicate contention, though the network P90 improvement (84.99ms to 5.34ms) suggests reduced load from checkoutservice issues."
+    },
+    {
+      "rank": 3,
+      "service": "productcatalogservice",
+      "fault_type": "c
+[INFO]2026-05-26 20:53:21,555 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 20:53:21,555 evaluator.py:61:   LLM Rank 1: service=checkoutservice, fault_type=memory, evidence=checkoutservice memory increased dramatically from 18.55% to 42.77% (24.22 percentage point increase
+[INFO]2026-05-26 20:53:21,555 evaluator.py:61:   LLM Rank 2: service=currencyservice, fault_type=cpu_contention, evidence=currencyservice CPU increased from 46.2% to 57.09% (10.89 percentage point increase). While still hi
+[INFO]2026-05-26 20:53:21,556 evaluator.py:61:   LLM Rank 3: service=productcatalogservice, fault_type=cpu_consumed, evidence=productcatalogservice CPU decreased from 34.19% to 16.66% (17.53 percentage point decrease). The nor
+[INFO]2026-05-26 20:53:21,556 evaluator.py:69:   -> NO MATCH found
+[INFO]2026-05-26 20:53:25,559 data_collector.py:199: Collecting profiling data for 2022-08-23 12:20 (ns=hipster)
+[INFO]2026-05-26 20:54:17,911 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 20:54:17,912 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 20:55:06,560 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "network",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased dramatically across nearly all services: productcatalogservice (1.11ms¡÷88.1ms, 79x), recommendationservice (0.92ms¡÷89.72ms, 97x), cartservice (1.55ms¡÷88.62ms, 57x), adservice (1.81ms¡÷86.97ms, 48x), checkoutservice (1.83ms¡÷72.54ms, 40x), shippingservice (2.49ms¡÷84.22ms, 34x). Trace durations show frontend Recv increased from ~54-242ms to 500k-1.8M us (20-33x). This is a systemic network latency issue affecting inter-service communication."
+    },
+    {
+      "rank": 2,
+      "service": "frontend",
+      "fault_type": "cpu_contention",
+      "evidence": "Frontend CPU spiked from 19.06% to 86.89% (4.5x increase), triggering an alarm. However, this is likely secondary - the frontend is waiting on slow network calls to backend services, causing thread blocking and CPU contention rather than primary CPU over-consumption."
+    },
+    {
+[INFO]2026-05-26 20:55:06,561 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 20:55:06,562 evaluator.py:61:   LLM Rank 1: service=network, fault_type=network_delay, evidence=Network P90 latency increased dramatically across nearly all services: productcatalogservice (1.11ms
+[INFO]2026-05-26 20:55:06,562 evaluator.py:61:   LLM Rank 2: service=frontend, fault_type=cpu_contention, evidence=Frontend CPU spiked from 19.06% to 86.89% (4.5x increase), triggering an alarm. However, this is lik
+[INFO]2026-05-26 20:55:06,563 evaluator.py:66:   -> MATCH at rank 2
+[INFO]2026-05-26 20:55:10,564 data_collector.py:199: Collecting profiling data for 2022-08-23 12:29 (ns=hipster)
+[INFO]2026-05-26 20:56:27,499 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 20:56:27,500 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 21:11:35,646 llm_ranker.py:175: LLM call failed on attempt 1: Error code: 504
+[INFO]2026-05-26 21:11:40,647 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[ERROR]2026-05-26 21:12:09,952 llm_ranker.py:175: LLM call failed on attempt 2: Connection error.
+[INFO]2026-05-26 21:12:19,953 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 3/5
+[ERROR]2026-05-26 21:27:28,199 llm_ranker.py:175: LLM call failed on attempt 3: Error code: 504
+[INFO]2026-05-26 21:27:43,201 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 4/5
+[ERROR]2026-05-26 21:40:30,885 llm_ranker.py:175: LLM call failed on attempt 4: Error code: 504
+[INFO]2026-05-26 21:40:50,886 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 5/5
+[ERROR]2026-05-26 21:55:58,978 llm_ranker.py:175: LLM call failed on attempt 5: Error code: 504
+[ERROR]2026-05-26 21:55:58,978 llm_ranker.py:190: All 5 LLM call attempts failed
+[INFO]2026-05-26 21:56:02,982 data_collector.py:199: Collecting profiling data for 2022-08-23 12:37 (ns=hipster)
+[INFO]2026-05-26 21:57:02,441 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 21:57:02,442 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 21:57:32,401 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "cartservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 for cartservice increased dramatically from 1.55ms (normal) to 223.03ms (fault) - a 144x increase. The fault alarm explicitly shows 'NetworkP90(ms) exceeded threshold' for cartservice. Trace analysis shows CartService/GetCart calls taking 211-224ms in fault period vs 2-5ms in normal traces, indicating severe network latency affecting cart service communication."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "checkoutservice memory usage more than doubled from 18.55% (normal) to 42.77% (fault). This is a significant memory increase that could indicate memory pressure or a memory leak, though the primary symptom appears to be the network delay in cartservice."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "adservice 
+[INFO]2026-05-26 21:57:32,401 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 21:57:32,401 evaluator.py:61:   LLM Rank 1: service=cartservice, fault_type=network_delay, evidence=Network P90 for cartservice increased dramatically from 1.55ms (normal) to 223.03ms (fault) - a 144x
+[INFO]2026-05-26 21:57:32,401 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 21:57:36,404 data_collector.py:199: Collecting profiling data for 2022-08-23 12:47 (ns=hipster)
+[INFO]2026-05-26 21:58:33,213 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 21:58:33,216 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 21:59:08,671 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "cartservice",
+      "fault_type": "cpu_contention",
+      "evidence": "cartservice CPU spiked from 6.12% to 100.25% (16x increase), triggering CpuUsageRate alarm. Network P90 latency increased from 1.55ms to 4.17ms. All cartservice operations in traces show massive latency increases: GetCart calls went from ~1-2ms to 41-226ms (up to 100x slower), AddItem calls increased from ~1.3ms to 20-69ms. This indicates the service is CPU-starved and cannot process requests efficiently."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "memory",
+      "evidence": "checkoutservice memory usage increased significantly from 18.55% to 42.77% (2.3x increase). Trace 5 shows checkoutservice's PlaceOrder took 300462us with GetCart call to cartservice taking 91750us (84x normal). The memory increase may indicate resource pressure or inefficient processing, though the primary bottleneck is the downstream car
+[INFO]2026-05-26 21:59:08,671 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 21:59:08,672 evaluator.py:61:   LLM Rank 1: service=cartservice, fault_type=cpu_contention, evidence=cartservice CPU spiked from 6.12% to 100.25% (16x increase), triggering CpuUsageRate alarm. Network 
+[INFO]2026-05-26 21:59:08,672 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 21:59:12,674 data_collector.py:199: Collecting profiling data for 2022-08-23 12:55 (ns=hipster)
+[INFO]2026-05-26 22:00:04,631 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:00:04,632 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:00:43,205 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "checkoutservice",
+      "fault_type": "network_delay",
+      "evidence": "checkoutservice Network P90 increased dramatically from 1.83ms (normal) to 235.69ms (fault) - a 128x increase. This is the most significant change across all services. The alarm explicitly flagged 'NetworkP90(ms) exceeded threshold'. Additionally, memory usage jumped from 18.55% to 49.79%, likely due to request queuing from network delays. Trace data shows checkoutservice operations like PlaceOrder taking 358636us with multiple slow internal calls (GetCart at 10181us, GetProduct at 10564us, ConvertCurrency at 64072us)."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "productcatalogservice CPU increased from 34.19% to 44.1% (+9.91 percentage points). While not as dramatic as network_delay on checkoutservice, this is the second-largest CPU increase. Some traces show produc
+[INFO]2026-05-26 22:00:43,206 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:00:43,206 evaluator.py:61:   LLM Rank 1: service=checkoutservice, fault_type=network_delay, evidence=checkoutservice Network P90 increased dramatically from 1.83ms (normal) to 235.69ms (fault) - a 128x
+[INFO]2026-05-26 22:00:43,206 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:00:47,210 data_collector.py:199: Collecting profiling data for 2022-08-23 13:04 (ns=hipster)
+[INFO]2026-05-26 22:00:59,924 data_collector.py:199: Collecting profiling data for 2022-08-23 13:12 (ns=hipster)
+[INFO]2026-05-26 22:01:11,488 data_collector.py:199: Collecting profiling data for 2022-08-23 13:21 (ns=hipster)
+[INFO]2026-05-26 22:02:07,536 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:02:07,536 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 22:17:15,781 llm_ranker.py:175: LLM call failed on attempt 1: Error code: 504
+[INFO]2026-05-26 22:17:20,783 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[INFO]2026-05-26 22:18:08,875 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "checkoutservice",
+      "fault_type": "cpu_contention",
+      "evidence": "checkoutservice CPU spiked from 4.14% (normal) to 90.87% (fault) - a 22x increase. This triggered a CpuUsageRate alarm. Trace durations show massive increases: Trace 1 went from 54909us to 601020us (11x), Trace 6 from 137384us to 815649us (6x). The high CPU contention in checkoutservice is causing request processing delays across the system."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "adservice memory at 87.13% triggered MemoryUsageRate alarm in both normal and fault periods. This is consistently high memory usage that could indicate memory pressure affecting ad retrieval performance. Trace data shows GetAds calls taking 18-24ms during fault vs 9-12ms during normal."
+    },
+    {
+      "rank": 3,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+      "evidence"
+[INFO]2026-05-26 22:18:08,877 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:18:08,877 evaluator.py:61:   LLM Rank 1: service=checkoutservice, fault_type=cpu_contention, evidence=checkoutservice CPU spiked from 4.14% (normal) to 90.87% (fault) - a 22x increase. This triggered a 
+[INFO]2026-05-26 22:18:08,877 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:18:12,878 data_collector.py:199: Collecting profiling data for 2022-08-23 13:29 (ns=hipster)
+[INFO]2026-05-26 22:18:28,755 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:18:28,756 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:19:01,299 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage increased dramatically from 46.2% (normal) to 85.01% (fault), exceeding the threshold. Network P90 latency exploded from 84.99ms to 1403.16ms (16.5x increase). Trace data shows CurrencyService/Convert calls went from ~1-5ms to 1-4 seconds, and GetCurrencyData calls show ~100ms delays. The frontend request durations increased from ~50-240ms to 2.6-25 seconds, directly correlating with currencyservice slowdowns."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage remained at ~87% in both periods, triggering the MemoryUsageRate alarm. However, this appears to be a pre-existing condition (also present in normal baseline) rather than a new fault. The adservice latency increased from ~9-24ms to ~26-81ms, but this is likely a secondary effect of being blocked by slow currencys
+[INFO]2026-05-26 22:19:01,300 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:19:01,300 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=cpu_contention, evidence=CPU usage increased dramatically from 46.2% (normal) to 85.01% (fault), exceeding the threshold. Net
+[INFO]2026-05-26 22:19:01,300 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:19:05,301 data_collector.py:199: Collecting profiling data for 2022-08-23 13:39 (ns=hipster)
+[INFO]2026-05-26 22:19:45,866 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:19:45,866 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:25:28,094 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 84.99ms (normal) to 628.58ms (fault) - a 7.4x increase. Trace data shows CurrencyService calls (GetSupportedCurrencies, Convert) increased from ~3-5ms to 500+ms. Overall trace durations increased from ~55-242ms to 1-2.8 seconds, with CurrencyService operations being the dominant contributor to latency."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage consistently high at 87.1% (normal) and 87.14% (fault), triggering MemoryUsageRate alarm in both periods. However, this appears to be a pre-existing condition rather than the root cause of the fault period degradation, as memory usage did not significantly change."
+    },
+    {
+      "rank": 3,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "S
+[INFO]2026-05-26 22:25:28,095 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:25:28,095 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 84.99ms (normal) to 628.58ms (fault) - a 7.4x increase. Trac
+[INFO]2026-05-26 22:25:28,095 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:25:32,098 data_collector.py:199: Collecting profiling data for 2022-08-23 13:47 (ns=hipster)
+[INFO]2026-05-26 22:26:09,737 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:26:09,738 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:27:08,910 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "emailservice",
+      "fault_type": "cpu_contention",
+      "evidence": "emailservice CPU spiked dramatically from 0.58% (normal) to 101.21% (fault), which triggered the CpuUsageRate(%) exceeded threshold alarm. This is a massive ~174x increase in CPU consumption. Memory also increased slightly from 4.89% to 6.44%, and network P90 latency increased from 2.9ms to 5.38ms. The service appears to be CPU-bound, possibly due to resource contention or an infinite loop/recursive code path."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "currencyservice CPU increased from 46.2% to 49.1% (normal baseline already high). Trace analysis shows high variability in CurrencyService/Convert calls with some taking 80-90ms (e.g., Trace 4: 80578us, 81926us) while others are normal (~1ms). The service is consuming more CPU resources, potentially due to inefficient currency
+[INFO]2026-05-26 22:27:08,910 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:27:08,910 evaluator.py:61:   LLM Rank 1: service=emailservice, fault_type=cpu_contention, evidence=emailservice CPU spiked dramatically from 0.58% (normal) to 101.21% (fault), which triggered the Cpu
+[INFO]2026-05-26 22:27:08,910 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:27:12,913 data_collector.py:199: Collecting profiling data for 2022-08-23 13:56 (ns=hipster)
+[INFO]2026-05-26 22:27:51,463 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:27:51,464 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:33:44,651 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "emailservice",
+      "fault_type": "network_delay",
+      "evidence": "emailservice Network P90 increased dramatically from 2.9ms (normal) to 898.33ms (fault) - a 310x increase. This is the most significant change and triggered a fault alarm. The fault traces show no direct emailservice calls, but the network latency spike indicates a network connectivity issue affecting this service."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "currencyservice CPU increased from 46.2% (normal) to 70.22% (fault) - a 52% increase. This is the second largest metric change. The fault traces show multiple CurrencyService/Convert calls with high durations (e.g., 449932us, 96689us, 184626us) compared to normal traces where Convert typically took 5000-9000us, indicating the service is struggling under load."
+    },
+    {
+      "rank": 3,
+      "service": "productcatalo
+[INFO]2026-05-26 22:33:44,651 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:33:44,651 evaluator.py:61:   LLM Rank 1: service=emailservice, fault_type=network_delay, evidence=emailservice Network P90 increased dramatically from 2.9ms (normal) to 898.33ms (fault) - a 310x inc
+[INFO]2026-05-26 22:33:44,651 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:33:48,653 data_collector.py:199: Collecting profiling data for 2022-08-23 14:05 (ns=hipster)
+[INFO]2026-05-26 22:34:32,418 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:34:32,418 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 22:45:40,002 llm_ranker.py:175: LLM call failed on attempt 1: Error code: 504
+[INFO]2026-05-26 22:45:45,003 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[INFO]2026-05-26 22:51:54,100 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "emailservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "emailservice CPU usage spiked dramatically from 0.58% (normal) to 84.7% (fault), a 145x increase, and triggered a CpuUsageRate(%) alarm. This is the most significant metric change across all services. The service is consuming excessive CPU resources during the fault period."
+    },
+    {
+      "rank": 2,
+      "service": "checkoutservice",
+      "fault_type": "cpu_contention",
+      "evidence": "checkoutservice CPU increased from 4.14% to 12.68% (3x increase). While not triggering an alarm, this is a notable spike. The service may be experiencing CPU resource contention, possibly due to increased load or blocking operations."
+    },
+    {
+      "rank": 3,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "productcatalogservice CPU increased from 34.19% to 51.71% (51% increase). This service already had high
+[INFO]2026-05-26 22:51:54,100 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:51:54,100 evaluator.py:61:   LLM Rank 1: service=emailservice, fault_type=cpu_consumed, evidence=emailservice CPU usage spiked dramatically from 0.58% (normal) to 84.7% (fault), a 145x increase, an
+[INFO]2026-05-26 22:51:54,100 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:51:58,101 data_collector.py:199: Collecting profiling data for 2022-08-23 14:14 (ns=hipster)
+[INFO]2026-05-26 22:52:37,052 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:52:37,052 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:58:25,561 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "paymentservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased dramatically from 5.43ms (normal) to 534.86ms (fault) - a 98x increase. This is the most significant metric change across all services. The fault alarm explicitly states 'NetworkP90(ms) exceeded threshold' for paymentservice. Trace analysis shows frontend requests involving paymentservice (via checkoutservice) experiencing high latency."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 decreased from 84.99ms to 7.83ms, which is unusual. However, trace data shows extremely high latency in CurrencyService/Convert calls (up to 203550us in Trace 2) and GetSupportedCurrencies (124807us), indicating inconsistent network performance. The currencyservice appears to be affected by the same network issues impacting paymentservice."
+    },
+    {
+      "rank
+[INFO]2026-05-26 22:58:25,562 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:58:25,562 evaluator.py:61:   LLM Rank 1: service=paymentservice, fault_type=network_delay, evidence=Network P90 increased dramatically from 5.43ms (normal) to 534.86ms (fault) - a 98x increase. This i
+[INFO]2026-05-26 22:58:25,562 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 22:58:29,563 data_collector.py:199: Collecting profiling data for 2022-08-23 14:23 (ns=hipster)
+[INFO]2026-05-26 22:59:11,731 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 22:59:11,732 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 22:59:56,741 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "paymentservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage spiked dramatically from 0.6% (normal) to 92.25% (fault) - a 150x increase. Memory also increased from 24.26% to 33.07%. The CpuUsageRate(%) alarm was triggered. This is the most significant metric change across all services, indicating the payment service is consuming excessive CPU resources, likely due to a code issue or processing overload."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage remained at 87.1% (normal) to 87.11% (fault), consistently exceeding the threshold. This is a persistent memory pressure issue that could affect ad service performance. The alarm was present in both periods, indicating a baseline memory leak or insufficient memory allocation."
+    },
+    {
+      "rank": 3,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+    
+[INFO]2026-05-26 22:59:56,741 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 22:59:56,741 evaluator.py:61:   LLM Rank 1: service=paymentservice, fault_type=cpu_consumed, evidence=CPU usage spiked dramatically from 0.6% (normal) to 92.25% (fault) - a 150x increase. Memory also in
+[INFO]2026-05-26 22:59:56,741 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:00:00,743 data_collector.py:199: Collecting profiling data for 2022-08-23 14:32 (ns=hipster)
+[INFO]2026-05-26 23:00:38,329 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:00:38,330 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:01:38,498 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased dramatically from 1.11ms to 106.84ms (96x increase). Trace analysis shows GetProduct calls increased from ~4-5ms to 90-110ms, and ListProducts calls increased from ~2-3ms to 100-160ms. This network latency directly impacted frontend request durations which increased from ~50-240ms to 261-1028ms."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "network_delay",
+      "evidence": "While Network P90 decreased from 84.99ms to 3.74ms in metrics, trace analysis shows Convert operations increased from ~5-9ms to 82-83ms in multiple traces. This appears to be a cascading effect from productcatalogservice delays, as currencyservice calls are blocked waiting for dependent services."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence":
+[INFO]2026-05-26 23:01:38,498 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:01:38,498 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=network_delay, evidence=Network P90 latency increased dramatically from 1.11ms to 106.84ms (96x increase). Trace analysis sh
+[INFO]2026-05-26 23:01:38,498 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:01:42,500 data_collector.py:199: Collecting profiling data for 2022-08-23 14:49 (ns=hipster)
+[INFO]2026-05-26 23:01:55,225 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:01:55,225 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-26 23:17:03,220 llm_ranker.py:175: LLM call failed on attempt 1: Error code: 504
+[INFO]2026-05-26 23:17:08,220 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[ERROR]2026-05-26 23:32:16,364 llm_ranker.py:175: LLM call failed on attempt 2: Error code: 504
+[INFO]2026-05-26 23:32:26,365 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 3/5
+[INFO]2026-05-26 23:38:34,980 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "return",
+      "evidence": "CPU dropped from 34.19% to 0.0%, indicating the service is not processing requests. Logs show 'No product with ID <ID>' errors during fault period, while normal logs show successful queries. This is causing cascading failures: frontend logs show 'Could not retrieve product' and 'Failed to get product recommendations', and checkoutservice logs show 'Failed to get product #<ID>' and 'Failed to prepare order'."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "return",
+      "evidence": "Network P90 dropped dramatically from 84.99ms to 3.12ms, suggesting the service is not performing real currency conversion work. Frontend logs show 'Failed to convert product' errors. Paymentservice logs show 'Amount: CAD0.0' and 'Amount: JPY0.0', indicating currency conversion failures resulted in zero-value transactions."
+    },
+   
+[INFO]2026-05-26 23:38:34,980 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:38:34,981 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=return, evidence=CPU dropped from 34.19% to 0.0%, indicating the service is not processing requests. Logs show 'No pr
+[INFO]2026-05-26 23:38:34,981 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:38:38,982 data_collector.py:199: Collecting profiling data for 2022-08-23 14:57 (ns=hipster)
+[INFO]2026-05-26 23:39:26,942 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:39:26,942 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:39:53,842 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage increased dramatically from 34.19% (normal) to 81.26% (fault), triggering a CpuUsageRate alarm. This is the only service showing significant CPU increase. SQL query durations within productcatalogservice increased from ~400-600us to 61,850us (100x+ increase in Trace 6), indicating CPU contention is severely impacting database query performance. This CPU bottleneck cascades to dependent services: recommendationservice shows ListProducts latency increasing from ~4-6ms to 337ms (80x), and frontend requests show total duration increasing from ~54ms to 728ms (13x)."
+    },
+    {
+      "rank": 2,
+      "service": "recommendationservice",
+      "fault_type": "cpu_contention",
+      "evidence": "While CPU metrics show only slight decrease (5.5% to 4.98%), trace analysis reveals severe latency degradation. ListRecommendations duration increas
+[INFO]2026-05-26 23:39:53,842 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:39:53,842 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=cpu_contention, evidence=CPU usage increased dramatically from 34.19% (normal) to 81.26% (fault), triggering a CpuUsageRate a
+[INFO]2026-05-26 23:39:53,843 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:39:57,844 data_collector.py:199: Collecting profiling data for 2022-08-23 15:06 (ns=hipster)
+[INFO]2026-05-26 23:40:13,053 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:40:13,053 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:41:20,476 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "productcatalogservice",
+      "fault_type": "exception",
+      "evidence": "productcatalogservice shows 'failed to scan mysql query result: Query product error' in logs during fault period. SQL query durations increased significantly (sql.rows: 24-47us normal vs 238-424us fault). CPU dropped from 34.19% to 7.38% indicating service was failing rather than processing. checkoutservice logs show 'Failed to get product #<ID>' confirming product lookups are failing. This database exception cascades to frontend ('Could not retrieve product', 'Failed to get product recommendations') and checkoutservice ('Failed to prepare order: failed to get product')."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "return",
+      "evidence": "Network P90 latency dropped dramatically from 84.99ms (normal) to 2.73ms (fault), which is anomalous. paymentservice logs show 'Amount: EUR0.0' and 'Amount: USD0.0' t
+[INFO]2026-05-26 23:41:20,476 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:41:20,476 evaluator.py:61:   LLM Rank 1: service=productcatalogservice, fault_type=exception, evidence=productcatalogservice shows 'failed to scan mysql query result: Query product error' in logs during 
+[INFO]2026-05-26 23:41:20,476 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:41:24,477 data_collector.py:199: Collecting profiling data for 2022-08-23 15:14 (ns=hipster)
+[INFO]2026-05-26 23:42:07,849 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:42:07,850 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:47:44,067 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "recommendationservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 increased from 0.92ms (normal) to 512.61ms (fault) - a 557x increase. The alarm explicitly triggered for recommendationservice NetworkP90(ms) exceeded threshold. All fault traces show frontend/hipstershop.RecommendationService/ListRecommendations taking 475,000-490,000us compared to normal traces where the same calls took 4,900-10,200us - indicating severe network latency between frontend and recommendationservice."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage increased from 34.19% (normal) to 42.32% (fault) - a notable increase. Some traces show productcatalogservice operations taking 41,904us and 70,988us for GetProduct calls, suggesting the service is under resource pressure. This is likely a secondary effect as productcatalogservice is 
+[INFO]2026-05-26 23:47:44,067 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:47:44,068 evaluator.py:61:   LLM Rank 1: service=recommendationservice, fault_type=network_delay, evidence=Network P90 increased from 0.92ms (normal) to 512.61ms (fault) - a 557x increase. The alarm explicit
+[INFO]2026-05-26 23:47:44,068 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:47:48,068 data_collector.py:199: Collecting profiling data for 2022-08-23 15:23 (ns=hipster)
+[INFO]2026-05-26 23:48:22,943 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:48:22,943 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:49:02,809 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "recommendationservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 5.5% (normal) to 85.95% (fault), triggering CpuUsageRate alarm. Trace analysis shows ListRecommendations duration increased from ~10ms to 1446ms (144x increase) in Trace 3, and from ~10ms to 147ms in Trace 2. This high CPU consumption directly correlates with the severe latency observed in recommendation service calls."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased from 1.11ms (normal) to 92.45ms (fault) - an 83x increase. SQL query times in traces show degradation (e.g., sql.conn.query from ~400-600us to 61850us in Trace 6). This network latency spike cascades to dependent services like recommendationservice."
+    },
+    {
+      "rank": 3,
+      "service": "emailservice",
+      "fault_type": "netwo
+[INFO]2026-05-26 23:49:02,809 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:49:02,810 evaluator.py:61:   LLM Rank 1: service=recommendationservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 5.5% (normal) to 85.95% (fault), triggering CpuUsageRate alarm. T
+[INFO]2026-05-26 23:49:02,810 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:49:06,811 data_collector.py:199: Collecting profiling data for 2022-08-23 15:31 (ns=hipster)
+[INFO]2026-05-26 23:49:29,950 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:49:29,950 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:50:08,615 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "recommendationservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 5.5% (normal) to 81.23% (fault), triggering an alarm. Trace data shows ListRecommendations calls taking 2.3-4.3 seconds during fault period vs <100ms normally. Logs explicitly show 'Inject cpu successfully' messages, confirming CPU stress injection. This CPU spike directly caused high latency in frontend requests (3.7-4.5 seconds total duration vs 54-242ms normally)."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased from 1.11ms to 12.12ms (10.9x increase). Some GetProduct calls in traces show elevated durations (22-70ms vs typical 2-5ms). However, this appears to be a secondary effect as productcatalogservice CPU actually decreased from 34.19% to 19.35%, suggesting the network delay may be caused by do
+[INFO]2026-05-26 23:50:08,616 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:50:08,616 evaluator.py:61:   LLM Rank 1: service=recommendationservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 5.5% (normal) to 81.23% (fault), triggering an alarm. Trace data 
+[INFO]2026-05-26 23:50:08,616 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:50:12,617 data_collector.py:199: Collecting profiling data for 2022-08-23 15:40 (ns=hipster)
+[INFO]2026-05-26 23:50:54,861 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:50:54,862 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:51:29,894 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "shippingservice",
+      "fault_type": "network_delay",
+      "evidence": "Network P90 latency increased from 2.49ms to 494.76ms (~199x increase), triggering a new alarm. Traces show ShippingService/GetQuote taking 494ms and ShippingService/ShipOrder taking 488ms during fault period, compared to normal sub-millisecond operations. This caused checkout operations to slow from ~55ms to ~1240ms total duration."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage increased from 46.2% to 63.16% (~17% increase). While still functional, this elevated CPU could contribute to latency in currency conversions observed in traces (Convert operations showing 90ms+ durations in some cases). The service shows consistently high baseline CPU compared to other services."
+    },
+    {
+      "rank": 3,
+      "service": "checkoutservice",
+      "fault_type": "network
+[INFO]2026-05-26 23:51:29,895 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:51:29,895 evaluator.py:61:   LLM Rank 1: service=shippingservice, fault_type=network_delay, evidence=Network P90 latency increased from 2.49ms to 494.76ms (~199x increase), triggering a new alarm. Trac
+[INFO]2026-05-26 23:51:29,895 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:51:33,897 data_collector.py:199: Collecting profiling data for 2022-08-23 15:49 (ns=hipster)
+[INFO]2026-05-26 23:52:17,276 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:52:17,276 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:52:42,712 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "shippingservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 3.3% (normal) to 100.78% (fault), triggering CpuUsageRate alarm. Trace analysis shows GetQuote latency increased from ~2.49ms network P90 to 482976us in Trace 3, with CreateQuoteFromCount taking 199611us. This indicates the service is CPU-bound and cannot process requests efficiently."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU increased from 34.19% to 42.63%. Traces show occasional high latency spikes in ParseCatalog (66834us in normal Trace 6) and ListProducts (66901us), with sql.conn.query reaching 61850us. This suggests increased CPU consumption for catalog operations."
+    },
+    {
+      "rank": 3,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "MemoryUsageRate alarm present in both normal (87
+[INFO]2026-05-26 23:52:42,712 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:52:42,712 evaluator.py:61:   LLM Rank 1: service=shippingservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 3.3% (normal) to 100.78% (fault), triggering CpuUsageRate alarm. 
+[INFO]2026-05-26 23:52:42,713 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:52:46,714 data_collector.py:199: Collecting profiling data for 2022-08-23 15:58 (ns=hipster)
+[INFO]2026-05-26 23:53:29,876 data_collector.py:220: Collected: 10 services, 2 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:53:29,878 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:54:36,594 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "shippingservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage spiked dramatically from 3.3% to 88.57% (26x increase), triggering CpuUsageRate alarm. Traces show GetQuote operations taking 500+ ms (shippingservice/hipstershop.ShippingService/GetQuote duration=528176us, 507689us) compared to normal operations. This high CPU consumption directly caused severe latency in frontend requests (duration=829608us, 761990us)."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage increased from 46.2% to 65.11% (41% increase). Traces show GetCurrencyData operations taking 80-91ms (duration=83365us, 84034us, 79658us, 91997us) compared to normal ~600-860us. Multiple Convert calls in frontend traces show durations up to 498363us, indicating CPU pressure affecting response times."
+    },
+    {
+      "rank": 3,
+      "service": "productcatalog
+[INFO]2026-05-26 23:54:36,594 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:54:36,594 evaluator.py:61:   LLM Rank 1: service=shippingservice, fault_type=cpu_consumed, evidence=CPU usage spiked dramatically from 3.3% to 88.57% (26x increase), triggering CpuUsageRate alarm. Tra
+[INFO]2026-05-26 23:54:36,594 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:54:40,595 data_collector.py:199: Collecting profiling data for 2022-08-23 16:07 (ns=hipster)
+[INFO]2026-05-26 23:55:19,765 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:55:19,765 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-26 23:56:37,509 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "adservice",
+      "fault_type": "network_delay",
+      "evidence": "adservice Network P90 increased dramatically from 1.81ms (normal) to 511.96ms (fault) - a 282x increase. Traces show AdService/GetAds calls taking 506,152us and 694,594us in fault period vs 9,435us-23,626us in normal period. This massive network latency spike is the primary cause of the overall request latency increase."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "adservice MemoryUsageRate(%) exceeded threshold in both periods (87.1% normal, 87.09% fault), indicating persistent high memory usage. However, this appears to be a pre-existing condition rather than the fault driver since memory levels remained stable while network latency spiked."
+    },
+    {
+      "rank": 3,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "currencyservice shows consist
+[INFO]2026-05-26 23:56:37,509 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-26 23:56:37,510 evaluator.py:61:   LLM Rank 1: service=adservice, fault_type=network_delay, evidence=adservice Network P90 increased dramatically from 1.81ms (normal) to 511.96ms (fault) - a 282x incre
+[INFO]2026-05-26 23:56:37,510 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-26 23:56:41,511 data_collector.py:199: Collecting profiling data for 2022-08-23 16:15 (ns=hipster)
+[INFO]2026-05-26 23:57:23,645 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-26 23:57:23,645 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[ERROR]2026-05-27 00:12:31,734 llm_ranker.py:175: LLM call failed on attempt 1: Error code: 504
+[INFO]2026-05-27 00:12:36,735 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 2/5
+[INFO]2026-05-27 00:24:22,266 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CurrencyService/Convert calls show extreme latency increase from normal ~9-90ms to fault period values reaching 613ms. Trace 3 shows frontend request duration of 1929713us (1.9s) vs normal ~183ms, with multiple CurrencyService/Convert calls taking 177ms-613ms each. CPU increased slightly from 46.2% to 48.85%. The GetCurrencyData call also shows 206ms latency in one instance, indicating processing delays consistent with CPU resource contention."
+    },
+    {
+      "rank": 2,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage increased from 87.1% to 95.91%, exceeding threshold in both periods but significantly worse during fault. CPU also increased from 4.32% to 14.25%. The high memory pressure could be causing degraded performance and contributing to overall system slowness."
+    },
+    {
+      "rank": 3,
+    
+[INFO]2026-05-27 00:24:22,266 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-27 00:24:22,266 evaluator.py:61:   LLM Rank 1: service=currencyservice, fault_type=cpu_contention, evidence=CurrencyService/Convert calls show extreme latency increase from normal ~9-90ms to fault period valu
+[INFO]2026-05-27 00:24:22,266 evaluator.py:61:   LLM Rank 2: service=adservice, fault_type=memory, evidence=Memory usage increased from 87.1% to 95.91%, exceeding threshold in both periods but significantly w
+[INFO]2026-05-27 00:24:22,266 evaluator.py:66:   -> MATCH at rank 2
+[INFO]2026-05-27 00:24:26,268 data_collector.py:199: Collecting profiling data for 2022-08-23 16:24 (ns=hipster)
+[INFO]2026-05-27 00:25:03,603 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-27 00:25:03,604 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-27 00:36:01,872 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "adservice",
+      "fault_type": "memory",
+      "evidence": "Memory usage increased significantly from 87.1% to 95.44% (8.34 percentage point increase), approaching memory limit. Frontend logs show 'Failed to retrieve ads' error during fault period, which does not appear in normal baseline logs. This indicates adservice is under memory pressure and failing to serve ad requests properly."
+    },
+    {
+      "rank": 2,
+      "service": "currencyservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage increased significantly from 46.2% to 59.28% (13 percentage point increase). Some traces show elevated latencies for currency operations (e.g., GetSupportedCurrencies at 133ms, Convert at 85ms in Trace 7). The high CPU utilization suggests resource contention affecting the service's ability to process currency conversions efficiently."
+    },
+    {
+      "rank": 3,
+      "service": "productcatalogservice",
+  
+[INFO]2026-05-27 00:36:01,872 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-27 00:36:01,873 evaluator.py:61:   LLM Rank 1: service=adservice, fault_type=memory, evidence=Memory usage increased significantly from 87.1% to 95.44% (8.34 percentage point increase), approach
+[INFO]2026-05-27 00:36:01,873 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-27 00:36:05,875 data_collector.py:199: Collecting profiling data for 2022-08-23 16:33 (ns=hipster)
+[INFO]2026-05-27 00:36:35,256 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-27 00:36:35,257 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-27 00:37:27,027 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "adservice",
+      "fault_type": "cpu_contention",
+      "evidence": "CPU usage spiked dramatically from 4.32% to 89.82% (20x increase), and memory exceeded container limit at 114.28%. Trace data shows AdService calls taking 1000+ seconds in fault period vs normal durations. The SELECT query to addatabase.aditems increased from ~1.5ms to 300ms+, indicating the service is struggling to process requests under resource pressure."
+    },
+    {
+      "rank": 2,
+      "service": "productcatalogservice",
+      "fault_type": "cpu_contention",
+      "evidence": "While CPU decreased slightly from 34.19% to 30.59%, trace analysis shows sql.conn.query latency increased significantly (from ~400-600us to 61,850us in Trace 6). The productcatalogservice is downstream of adservice and shows cascading effects from the adservice overload, with some GetProduct calls taking 88,069us vs normal ~4,000-6,000us."
+    },
+    {
+      "rank": 3,
+     
+[INFO]2026-05-27 00:37:27,027 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-27 00:37:27,028 evaluator.py:61:   LLM Rank 1: service=adservice, fault_type=cpu_contention, evidence=CPU usage spiked dramatically from 4.32% to 89.82% (20x increase), and memory exceeded container lim
+[INFO]2026-05-27 00:37:27,028 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-27 00:37:31,030 data_collector.py:199: Collecting profiling data for 2022-08-23 16:42 (ns=hipster)
+[INFO]2026-05-27 00:38:07,658 data_collector.py:220: Collected: 10 services, 1 alarms, 8 traces, 10 log groups
+[INFO]2026-05-27 00:38:07,659 llm_ranker.py:146: Calling nvidia (model=minimaxai/minimax-m2.7), attempt 1/5
+[INFO]2026-05-27 00:39:24,415 llm_ranker.py:150: LLM raw response: 
+
+{
+  "root_causes": [
+    {
+      "rank": 1,
+      "service": "adservice",
+      "fault_type": "cpu_consumed",
+      "evidence": "CPU usage spiked dramatically from 4.32% to 89.47% (20x increase), triggering CpuUsageRate alarm. AdService/GetAds latency increased from 9-24ms (normal) to 83-106ms (fault), with internal processing (AdServiceImpl/getAds, getAdsByCategory) showing proportional slowdown. Database queries (SELECT addatabase.aditems) remained fast at 1-2ms, ruling out database issues. The high CPU consumption directly caused request processing delays."
+    },
+    {
+      "rank": 2,
+      "service": "cartservice",
+      "fault_type": "cpu_contention",
+      "evidence": "While CPU metrics show minimal change (6.12% to 4.86%), trace data reveals significant latency increase in cart operations. CartService/GetCart increased from 1-2ms to 14ms in some traces, and CartService/EmptyCart spiked to 66991us in checkout trace 8 (vs 768us normal). This suggests the cart service may be ex
+[INFO]2026-05-27 00:39:24,416 llm_ranker.py:170: LLM returned 3 root cause candidates
+[INFO]2026-05-27 00:39:24,416 evaluator.py:61:   LLM Rank 1: service=adservice, fault_type=cpu_consumed, evidence=CPU usage spiked dramatically from 4.32% to 89.47% (20x increase), triggering CpuUsageRate alarm. Ad
+[INFO]2026-05-27 00:39:24,416 evaluator.py:66:   -> MATCH at rank 1
+[INFO]2026-05-27 00:39:24,416 evaluator.py:111: ============================================================
+[INFO]2026-05-27 00:39:24,416 evaluator.py:112: LLM RCA Results (hipster, service level)
+[INFO]2026-05-27 00:39:24,416 evaluator.py:113: ============================================================
+[INFO]2026-05-27 00:39:24,418 evaluator.py:114: Total faults: 56
+[INFO]2026-05-27 00:39:24,418 evaluator.py:115: Not found: 8
+[INFO]2026-05-27 00:39:24,418 evaluator.py:116: Top-1 Accuracy: 73.21% (41/56)
+[INFO]2026-05-27 00:39:24,418 evaluator.py:118: Top-3 Accuracy: 85.71% (48/56)
