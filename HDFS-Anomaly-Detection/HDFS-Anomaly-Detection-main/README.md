@@ -41,7 +41,7 @@ https://github.com/logpai/loghub/tree/master/HDFS
 
 ## 軟體 Software
 
-* Python 3.x
+* Python 3.12.11
 * OpenAI Python SDK
 * Pandas
 
