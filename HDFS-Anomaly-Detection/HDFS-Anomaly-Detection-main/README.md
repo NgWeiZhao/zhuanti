@@ -31,6 +31,25 @@ https://github.com/logpai/loghub/tree/master/HDFS
 | INFO     | 系統正常執行行為       |
 | WARN     | 系統警告、異常事件      |
 
+HDFS_2k.log_structured.csv (格式內容)
+| LineId | Level | Component                    | Content                                                                                     |
+| ------ | ----- | ---------------------------- | ------------------------------------------------------------------------------------------- |
+| 1      | INFO  | dfs.DataNode$PacketResponder | PacketResponder 1 for block blk_38865049064139660 terminating                               |
+| 100    | WARN  | dfs.DataNode$DataXceiver     | 10.251.73.220:50010:Got exception while serving blk_4934527196392001803 to /10.251.203.246: |
+
+格式內容分析
+| 欄位名稱          | 說明                |
+| ------------- | ----------------- |
+| LineId        | 日誌編號              |
+| Date          | 記錄日期              |
+| Time          | 記錄時間              |
+| Pid           | 程序（Process）ID     |
+| Level         | 日誌等級（INFO / WARN） |
+| Component     | 產生日誌的系統元件         |
+| Content       | 原始日誌內容            |
+| EventId       | 事件編號              |
+| EventTemplate | 經過模板化處理的事件格式      |
+
 ---
 
 # 實驗環境（Experimental Environment）
